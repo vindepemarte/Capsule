@@ -719,6 +719,61 @@ nav { display: flex; align-items: center; gap: 4px; }
 }
 
 /* ===========================
+   COMPATIBILITY SECTION
+   =========================== */
+#compatibility { padding: 80px 0; }
+
+.compat-grid {
+    overflow: hidden;
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-xl);
+    background: rgba(2, 4, 12, 0.28);
+}
+
+.compat-row {
+    display: grid;
+    grid-template-columns: 220px 160px 1fr;
+    gap: 18px;
+    align-items: start;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.045);
+    color: var(--text-secondary);
+    font-size: 13.5px;
+    line-height: 1.55;
+}
+
+.compat-row:last-child { border-bottom: none; }
+
+.compat-head {
+    background: rgba(255,255,255,0.025);
+    color: var(--text-muted);
+    font-size: 11px;
+    font-family: var(--font-outfit);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.compat-target {
+    color: var(--text-primary);
+    font-weight: 700;
+    font-family: var(--font-outfit);
+}
+
+.compat-row code {
+    background: rgba(255,255,255,0.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #a5b4fc;
+}
+
+.status-ok { color: var(--color-success); }
+.status-partial { color: var(--color-warning); }
+.status-planned { color: #93c5fd; }
+
+/* ===========================
    YAML SPEC EXPLORER
    =========================== */
 #spec-explorer { padding: 80px 0; }
@@ -1110,6 +1165,7 @@ nav { display: flex; align-items: center; gap: 4px; }
     .hero-subtitle { max-width: 100%; margin-left: auto; margin-right: auto; }
     .hero-buttons { justify-content: center; }
     .features-grid, .steps-grid { grid-template-columns: 1fr; }
+    .compat-row { grid-template-columns: 1fr; gap: 8px; }
     .explorer-grid { grid-template-columns: 1fr; }
     .quickstart-layout { grid-template-columns: 1fr; }
     .qs-tabs { flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--border-glass); }

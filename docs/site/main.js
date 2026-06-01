@@ -33,33 +33,29 @@
             key: 'scan',
             label: 'capsule scan output',
             code: `<code>$ capsule scan
-<span style="color:#10b981">✓</span> Manifest loaded: my_agent/capsule.yaml
+<span style="color:#10b981">✓</span> Manifest loaded: capsule.yaml
 <span style="color:#10b981">✓</span> Schema valid
-<span style="color:#10b981">✓</span> Models declared: gemini-1.5-pro
-<span style="color:#10b981">✓</span> Tools scanned: 3 found, 0 unsafe
-<span style="color:#fbbf24">⚠</span> No input_schema defined — optional
-<span style="color:#10b981">✓</span> PASSED (1 warning, 0 errors)</code>`,
+<span style="color:#10b981">✓</span> Tools scanned: 2 found
+<span style="color:#fbbf24">⚠</span> draft_reply declares write_draft
+<span style="color:#10b981">✓</span> Scan completed</code>`,
         },
         {
             key: 'run',
             label: 'capsule run output',
-            code: `<code>$ capsule run --input '{"order_id":"ORD-42"}'
+            code: `<code>$ capsule run --input examples/refund-request.json --allow-all
 <span style="color:#60a5fa">→</span> Loading capsule.yaml
-<span style="color:#60a5fa">→</span> Resolving model: gemini-2.0-flash
-<span style="color:#60a5fa">→</span> Executing agent: main
-<span style="color:#10b981">✓</span> Tool call: check_order_status → OK
-<span style="color:#10b981">✓</span> Tool call: process_refund → OK
-<span style="color:#10b981">✓</span> Done — refund approved</code>`,
+<span style="color:#60a5fa">→</span> Executing agent: triage
+<span style="color:#10b981">✓</span> Tool call: policy_search
+<span style="color:#60a5fa">→</span> Executing agent: responder
+<span style="color:#10b981">✓</span> final_reply created</code>`,
         },
         {
             key: 'test',
             label: 'capsule test output',
             code: `<code>$ capsule test
-<span style="color:#60a5fa">→</span> Running 3 test cases...
-<span style="color:#10b981">✓</span> [1/3] order_found.yaml → PASS
-<span style="color:#10b981">✓</span> [2/3] order_not_found.yaml → PASS
-<span style="color:#10b981">✓</span> [3/3] refund_denied.yaml → PASS
-<span style="color:#10b981">✓</span> All tests passed in 0.42s</code>`,
+<span style="color:#60a5fa">→</span> Running refund_request.yaml
+<span style="color:#10b981">✓</span> refund request routes to responder
+<span style="color:#10b981">✓</span> All tests passed.</code>`,
         },
     ];
 
@@ -96,21 +92,20 @@
     if (!terminalBody) return;
 
     const lines = [
-        { text: '$ capsule scan ./agents/refund-support-agent', type: 'prompt', delay: 400 },
+        { text: '$ capsule scan ./refund-support-agent', type: 'prompt', delay: 400 },
         { text: '', type: 'info', delay: 700 },
         { text: '  Loading capsule.yaml...', type: 'info', delay: 900 },
         { text: '  ✓  Schema: valid', type: 'success', delay: 1200 },
         { text: '  ✓  name: refund-support-agent', type: 'success', delay: 1500 },
-        { text: '  ✓  version: 1.0.0', type: 'success', delay: 1700 },
-        { text: '  ✓  Models declared: gemini-2.0-flash', type: 'success', delay: 2000 },
-        { text: '  ✓  Agents: 1 valid', type: 'success', delay: 2300 },
-        { text: '  ✓  Tools: 3 found — scanning...', type: 'success', delay: 2600 },
-        { text: '  ✓  check_order_status — SAFE', type: 'success', delay: 3000 },
-        { text: '  ✓  process_refund — SAFE', type: 'success', delay: 3300 },
-        { text: '  ✓  notify_customer — SAFE', type: 'success', delay: 3600 },
-        { text: '  ⚠  input_schema not declared — optional field', type: 'warn', delay: 4000 },
+        { text: '  ✓  version: 0.1.0', type: 'success', delay: 1700 },
+        { text: '  ✓  Agents: triage, responder', type: 'success', delay: 2000 },
+        { text: '  ✓  Tools: policy_search, draft_reply', type: 'success', delay: 2300 },
+        { text: '  ✓  policy_search — read', type: 'success', delay: 2600 },
+        { text: '  ⚠  draft_reply — write_draft can modify workflow state', type: 'warn', delay: 3000 },
+        { text: '  ✓  MCP declarations supported for mocked tests', type: 'success', delay: 3300 },
+        { text: '  ⚠  Live MCP orchestration is still planned', type: 'warn', delay: 3600 },
         { text: '', type: 'info', delay: 4200 },
-        { text: '  RESULT: PASSED  ✓  (1 warning, 0 errors)', type: 'output', delay: 4500 },
+        { text: '  RESULT: COMPLETED  ✓  (1 warning, 0 errors)', type: 'output', delay: 4500 },
     ];
 
     let started = false;
@@ -218,7 +213,7 @@ const SPEC_DATA = {
         desc: 'Semantic version string for this capsule. Enables changelogs, rollback references, and version-locked sub-agent dependencies.',
         validations: [
             'Must follow semver format: MAJOR.MINOR.PATCH',
-            'Should be a quoted string in YAML: "1.0.0"',
+            'Can be written as a YAML string or scalar such as 0.1.0',
             'Increment MAJOR for breaking agent contract changes',
         ],
         impact: 'Version mismatches between parent and sub-agent capsules are flagged during scan. Critical for reproducible deployments.',
@@ -242,28 +237,28 @@ const SPEC_DATA = {
         req: 'Required',
         reqClass: '',
         title: 'models',
-        desc: 'The allowlist of LLM model identifiers permitted for use in this capsule. Any model not declared here is blocked at runtime — even if coded into an agent.',
+        desc: 'A named map of model configurations. Agents reference these keys through their model field so runtimes and adapters can resolve provider settings consistently.',
         validations: [
-            'Must be a non-empty list of strings',
-            'At least one model identifier required',
-            'Model IDs must match provider format (e.g. gemini-2.0-flash)',
+            'Must be a non-empty object',
+            'Each model entry should declare provider and model',
+            'Agent model references must point to one of these keys',
         ],
-        impact: 'Prevents unauthorized model usage. If a model not in this list is called at runtime, Capsule raises a SecurityError before any token is spent.',
-        tip: 'List every model your agents use — including fallback models. Undeclared models will always fail, even in dev mode.',
+        impact: 'Keeps model configuration out of prompt code and makes generated adapters easier to inspect. The starter uses provider: local and model: deterministic-dev for no-key tests.',
+        tip: 'Use a local deterministic model entry for fixtures and tests. Add real provider entries only when the generated runtime should call an LLM.',
     },
     agents: {
         tag: 'Runtime',
         req: 'Required',
         reqClass: '',
         title: 'agents',
-        desc: 'Defines one or more agent configurations. Each agent has a name, a system prompt file, a model, and a list of tool references it may call.',
+        desc: 'Defines one or more named agent configurations. Each agent points to a prompt file, a model key, and the tools it may call.',
         validations: [
             'At least one agent entry required',
-            'Each agent must have: name, prompt (file path), model',
-            'Model must be declared in the top-level models list',
-            'All tool references must exist in the top-level tools list',
+            'Each agent should have prompt and model',
+            'Model must be declared in the top-level models object',
+            'All tool references must exist in the top-level tools object',
         ],
-        impact: 'The agent list is the core routing map. Misconfigured agents cause silent tool-call failures at runtime. Capsule validates all cross-references at scan time.',
+        impact: 'Agents are the reusable execution roles used by workflow steps. Capsule validates prompt paths, model references, and tool cross-references.',
         tip: 'Use separate agents for distinct reasoning roles (e.g., "planner" and "executor") rather than one monolithic agent.',
     },
     tools: {
@@ -271,14 +266,14 @@ const SPEC_DATA = {
         req: 'Optional',
         reqClass: 'optional',
         title: 'tools',
-        desc: 'Declares Python functions as tools available to agents. Each entry points to a source file and function name that Capsule will load and wrap.',
+        desc: 'Declares Python or MCP tools available to agents. Python tools use an entrypoint in the form path/to/file.py:function_name plus a permission label.',
         validations: [
-            'Each tool must have: name, source (file path), function (name)',
-            'Source file must exist and be importable',
-            'Function must accept typed arguments for schema inference',
+            'Each Python tool must declare type: python and entrypoint',
+            'Source file must exist and expose the named callable',
+            'Permission labels are scanned and enforced by the local runtime',
         ],
-        impact: 'Tools not declared here cannot be used by agents, even if coded directly. This is the enforcement boundary for capability control.',
-        tip: 'Annotate tool functions with Python type hints — Capsule uses them to auto-generate JSON schema for the LLM.',
+        impact: 'Tools are Capsule\'s capability boundary. Risky permissions such as write_draft are surfaced by capsule scan before execution.',
+        tip: 'Keep tool permissions small and explicit. Use mocked tool responses in tests for deterministic routing checks.',
     },
     input_schema: {
         tag: 'Contract',
@@ -294,19 +289,20 @@ const SPEC_DATA = {
         impact: 'Prevents invalid inputs from reaching the LLM, reducing wasted tokens and obscure failures. Required for agents exposed as APIs.',
         tip: 'Even a minimal schema (just defining the top-level type) is enough to catch most bad inputs early.',
     },
-    secrets: {
-        tag: 'Security',
-        req: 'Optional',
-        reqClass: 'optional',
-        title: 'secrets',
-        desc: 'Declares the names of environment variables this agent requires at runtime. Capsule validates that all listed secrets are present before agent execution begins.',
+    workflow: {
+        tag: 'Runtime',
+        req: 'Required',
+        reqClass: '',
+        title: 'workflow',
+        desc: 'Defines the executable graph: the start step, each step id, step type, agent binding, branching rules, human gates, and final output step.',
         validations: [
-            'List of non-empty strings (env var names)',
-            'Values are never stored in the capsule — only names',
-            'All declared secrets must be set in environment at runtime',
+            'Must declare a start step',
+            'Every referenced next step must exist',
+            'Agent steps must reference declared agents',
+            'Branch labels route to valid step ids',
         ],
-        impact: 'Agents fail fast with a clear error if a secret is missing, rather than crashing mid-execution with a cryptic API error.',
-        tip: 'Never put actual secret values in capsule.yaml. Use a .env file locally and inject via CI/CD in production.',
+        impact: 'The workflow becomes the framework-neutral Capsule Graph. Local runs, tests, bundles, and compiler adapters all derive behavior from this graph.',
+        tip: 'Use capsule graph to inspect the normalized graph before compiling to LangGraph, CrewAI, or OpenAI Agents.',
     },
 };
 

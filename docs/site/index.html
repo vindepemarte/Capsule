@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capsule | The Packaging & Security Layer for AI Agents</title>
-    <meta name="description" content="Capsule is the open-source packaging and security runtime for AI agents. Define agents as code, run them safely anywhere.">
+    <meta name="description" content="Capsule is the open-source packaging, testing, and compiler layer for AI agent workflows. Define once, test locally, and compile to supported runtimes.">
     <meta name="keywords" content="AI agents, LLM tools, agent framework, Python, capsule, security, MCP, packaging">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +30,7 @@
         </div>
         <nav aria-label="Primary navigation">
             <a href="#features" class="nav-link">Features</a>
+            <a href="#compatibility" class="nav-link">Compatibility</a>
             <a href="#spec-explorer" class="nav-link">Schema</a>
             <a href="#quickstart" class="nav-link">Quickstart</a>
             <a href="#security-runtime" class="nav-link">Security</a>
@@ -55,10 +56,10 @@
                 <div class="badge-pill">Open-Source · Python 3.12</div>
                 <h1 id="hero-title" class="hero-title">
                     Agents. Packaged.<br>
-                    <span class="gradient-text">Secured. Deployed.</span>
+                    <span class="gradient-text">Tested. Compiled.</span>
                 </h1>
                 <p class="hero-subtitle">
-                    Capsule is the packaging and security runtime for AI agents. Define your agent once as a <code style="font-family:monospace; background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:15px;">capsule.yaml</code>, then scan, run, and test it anywhere.
+                    Capsule is the packaging, testing, and compiler layer for AI agent workflows. Define your workflow once as a <code style="font-family:monospace; background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:15px;">capsule.yaml</code>, run it locally, and compile it to supported runtimes.
                 </p>
                 <div class="hero-buttons">
                     <a href="#quickstart" class="btn btn-primary btn-icon">
@@ -149,10 +150,10 @@
                     <pre id="sim-code-preview"><code>$ capsule scan
 <span style="color:#10b981">✓</span> Manifest loaded: my_agent/capsule.yaml
 <span style="color:#10b981">✓</span> Schema valid
-<span style="color:#10b981">✓</span> Models declared: gemini-1.5-pro
-<span style="color:#10b981">✓</span> Tools scanned: 3 found, 0 unsafe
-<span style="color:#fbbf24">⚠</span> No input_schema defined — optional
-<span style="color:#10b981">✓</span> PASSED (3 warnings, 0 errors)</code></pre>
+<span style="color:#10b981">✓</span> Models declared: deterministic-dev
+<span style="color:#10b981">✓</span> Tools scanned: policy_search, draft_reply
+<span style="color:#fbbf24">⚠</span> draft_reply declares write_draft
+<span style="color:#10b981">✓</span> Scan completed</code></pre>
                 </div>
             </div>
 
@@ -181,8 +182,8 @@
 
             <div class="step-card glass-panel card-glow-pink reveal reveal-delay-2">
                 <div class="step-num">03</div>
-                <h3>Deploy</h3>
-                <p>Run locally, plug into CI/CD, or ship to production. Capsule gives every agent a portable, auditable identity that travels with it.</p>
+                <h3>Compile</h3>
+                <p>Export the same workflow into supported target projects. LangGraph runs end-to-end locally today; CrewAI and OpenAI Agents exports are generated and import-tested.</p>
             </div>
 
         </div>
@@ -195,7 +196,7 @@
 <section id="features" aria-labelledby="features-title">
     <div class="container">
         <h2 id="features-title" class="section-title reveal">Everything an agent needs.</h2>
-        <p class="section-subtitle reveal reveal-delay-1">Not a framework. Not an orchestrator. Capsule is the spec, validator, and runtime wrapper that every agent stack is missing.</p>
+        <p class="section-subtitle reveal reveal-delay-1">Not a framework. Not an orchestrator. Capsule is the spec, validator, test runner, and adapter layer around your agent stack.</p>
 
         <div class="features-grid">
 
@@ -204,7 +205,7 @@
                     <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
                 <h3>Declarative Schema</h3>
-                <p>The <code>capsule.yaml</code> is your agent's contract. Models, tools, prompts, secrets, and I/O schemas live as code — version-controlled and reviewable by anyone.</p>
+                <p>The <code>capsule.yaml</code> is your agent workflow contract. Models, tools, prompts, schemas, permissions, and routing live as code that can be reviewed and tested.</p>
             </div>
 
             <div class="feature-card glass-panel card-glow-purple reveal reveal-delay-1">
@@ -212,7 +213,7 @@
                     <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
                 <h3>Static Security Scan</h3>
-                <p>Run <code>capsule scan</code> before any agent executes. It validates the manifest, flags unsafe tool patterns, and enforces declared model allowlists.</p>
+                <p>Run <code>capsule scan</code> before any agent executes. It validates the manifest, flags unsafe tool patterns, and checks model and tool references.</p>
             </div>
 
             <div class="feature-card glass-panel card-glow-pink reveal reveal-delay-2">
@@ -227,8 +228,8 @@
                 <div class="feature-icon">
                     <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.071 4.929l-2.829 2.829M4.929 19.071l2.828-2.828M19.071 19.071l-2.829-2.828M4.929 4.929l2.828 2.829" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                 </div>
-                <h3>MCP Integrations</h3>
-                <p>Declare MCP server connections directly in your capsule. Capsule wires up transports, resolves tool namespaces, and validates calls at runtime.</p>
+                <h3>MCP Declarations</h3>
+                <p>Declare MCP tool boundaries directly in your capsule. Current support is declaration-only with mocked local tests; live MCP orchestration is on the roadmap.</p>
             </div>
 
             <div class="feature-card glass-panel card-glow-purple reveal reveal-delay-1">
@@ -243,10 +244,53 @@
                 <div class="feature-icon">
                     <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
-                <h3>Framework Agnostic</h3>
-                <p>Capsule wraps any agent framework. LangChain, ADK, CrewAI, or raw function calls — Capsule doesn't replace your stack, it packages it.</p>
+                <h3>Adapter-Based Exports</h3>
+                <p>Capsule currently compiles to LangGraph, CrewAI Flows, and OpenAI Agents SDK. Additional adapters such as Haystack are planned, not shipped yet.</p>
             </div>
 
+        </div>
+    </div>
+</section>
+
+<!-- ===========================
+     COMPATIBILITY
+     =========================== -->
+<section id="compatibility" aria-labelledby="compat-title">
+    <div class="container">
+        <h2 id="compat-title" class="section-title reveal">What works today.</h2>
+        <p class="section-subtitle reveal reveal-delay-1">Capsule is early, so the public contract is explicit. Use this table to know what is runnable now and what still needs credentials or a future adapter.</p>
+
+        <div class="compat-grid reveal">
+            <div class="compat-row compat-head">
+                <span>Target</span>
+                <span>Status</span>
+                <span>Expected behavior</span>
+            </div>
+            <div class="compat-row">
+                <span class="compat-target">Capsule local runtime</span>
+                <span><strong class="status-ok">Runnable</strong></span>
+                <span><code>validate</code>, <code>scan</code>, <code>test</code>, <code>run</code>, <code>build</code>, and <code>verify-bundle</code> work on the starter workflow.</span>
+            </div>
+            <div class="compat-row">
+                <span class="compat-target">LangGraph</span>
+                <span><strong class="status-ok">Runnable</strong></span>
+                <span>Generated LangGraph output runs end-to-end with local Python tools and no LLM API key for the starter workflow.</span>
+            </div>
+            <div class="compat-row">
+                <span class="compat-target">CrewAI Flows</span>
+                <span><strong class="status-partial">Generated</strong></span>
+                <span>Generated project imports against real CrewAI on Python 3.12. Full native execution requires model/provider credentials.</span>
+            </div>
+            <div class="compat-row">
+                <span class="compat-target">OpenAI Agents SDK</span>
+                <span><strong class="status-partial">Generated</strong></span>
+                <span>Generated project imports against the real SDK. Full native execution requires <code>OPENAI_API_KEY</code> or another configured provider.</span>
+            </div>
+            <div class="compat-row">
+                <span class="compat-target">Haystack</span>
+                <span><strong class="status-planned">Planned</strong></span>
+                <span>No compiler adapter yet. <code>capsule compile --target haystack</code> is expected to return <code>Unsupported target</code>.</span>
+            </div>
         </div>
     </div>
 </section>
@@ -264,27 +308,28 @@
             <div class="code-container reveal">
                 <div class="code-title font-mono">my-agent/capsule.yaml</div>
                 <pre class="yaml-code font-mono"><code><span class="yaml-key clickable active" data-key="name">name</span>: <span class="yaml-val">refund-support-agent</span>
-<span class="yaml-key clickable" data-key="version">version</span>: <span class="yaml-val">"1.0.0"</span>
+<span class="yaml-key clickable" data-key="version">version</span>: <span class="yaml-val">0.1.0</span>
 <span class="yaml-key clickable" data-key="description">description</span>: <span class="yaml-val">&gt;
   Processes customer refund requests
   and determines eligibility.</span>
 
 <span class="yaml-key clickable" data-key="models">models</span>:
-  - <span class="yaml-val">gemini-2.0-flash</span>
-  - <span class="yaml-val">gemini-1.5-pro</span>
+  <span class="yaml-key">default</span>:
+    <span class="yaml-key">provider</span>: <span class="yaml-val">local</span>
+    <span class="yaml-key">model</span>: <span class="yaml-val">deterministic-dev</span>
 
 <span class="yaml-key clickable" data-key="agents">agents</span>:
-  - <span class="yaml-key">name</span>: <span class="yaml-val">main</span>
-    <span class="yaml-key">prompt</span>: <span class="yaml-val">prompts/main.md</span>
-    <span class="yaml-key">model</span>: <span class="yaml-val">gemini-2.0-flash</span>
+  <span class="yaml-key">triage</span>:
+    <span class="yaml-key">prompt</span>: <span class="yaml-val">agents/triage.md</span>
+    <span class="yaml-key">model</span>: <span class="yaml-val">default</span>
     <span class="yaml-key">tools</span>:
-      - <span class="yaml-val">check_order_status</span>
-      - <span class="yaml-val">process_refund</span>
+      - <span class="yaml-val">policy_search</span>
 
 <span class="yaml-key clickable" data-key="tools">tools</span>:
-  - <span class="yaml-key">name</span>: <span class="yaml-val">check_order_status</span>
-    <span class="yaml-key">source</span>: <span class="yaml-val">tools/orders.py</span>
-    <span class="yaml-key">function</span>: <span class="yaml-val">check_order_status</span>
+  <span class="yaml-key">policy_search</span>:
+    <span class="yaml-key">type</span>: <span class="yaml-val">python</span>
+    <span class="yaml-key">entrypoint</span>: <span class="yaml-val">tools/policy_search.py:search_policy</span>
+    <span class="yaml-key">permission</span>: <span class="yaml-val">read</span>
 
 <span class="yaml-key clickable" data-key="input_schema">input_schema</span>:
   <span class="yaml-key">type</span>: <span class="yaml-val">object</span>
@@ -292,8 +337,12 @@
     <span class="yaml-key">order_id</span>:
       <span class="yaml-key">type</span>: <span class="yaml-val">string</span>
 
-<span class="yaml-key clickable" data-key="secrets">secrets</span>:
-  - <span class="yaml-val">ORDERS_API_KEY</span>
+<span class="yaml-key clickable" data-key="workflow">workflow</span>:
+  <span class="yaml-key">start</span>: <span class="yaml-val">triage</span>
+  <span class="yaml-key">steps</span>:
+    - <span class="yaml-key">id</span>: <span class="yaml-val">triage</span>
+      <span class="yaml-key">type</span>: <span class="yaml-val">agent</span>
+      <span class="yaml-key">agent</span>: <span class="yaml-val">triage</span>
 </code></pre>
             </div>
 
@@ -359,13 +408,14 @@
 <section id="quickstart" aria-labelledby="quickstart-title">
     <div class="container">
         <h2 id="quickstart-title" class="section-title reveal">Up in 60 seconds.</h2>
-        <p class="section-subtitle reveal reveal-delay-1">From zero to a running, scanned agent in three steps.</p>
+        <p class="section-subtitle reveal reveal-delay-1">From zero to a running, scanned, compiled starter workflow.</p>
 
         <div class="quickstart-layout reveal">
             <div class="qs-tabs" role="tablist" aria-label="Quickstart steps">
                 <button id="tab-install" class="tab-btn active" role="tab" aria-selected="true" aria-controls="pane-install" onclick="switchTab(event,'install')">1. Install</button>
                 <button id="tab-create" class="tab-btn" role="tab" aria-selected="false" aria-controls="pane-create" onclick="switchTab(event,'create')">2. Create</button>
                 <button id="tab-run" class="tab-btn" role="tab" aria-selected="false" aria-controls="pane-run" onclick="switchTab(event,'run')">3. Run</button>
+                <button id="tab-compile" class="tab-btn" role="tab" aria-selected="false" aria-controls="pane-compile" onclick="switchTab(event,'compile')">4. Compile</button>
             </div>
 
             <div class="qs-content">
@@ -389,19 +439,9 @@
                     </div>
                     <pre><code><span class="comment"># my-agent/capsule.yaml</span>
 
-<span style="color:#f87171">name</span>: <span style="color:#34d399">my-first-agent</span>
-<span style="color:#f87171">version</span>: <span style="color:#34d399">"1.0.0"</span>
-<span style="color:#f87171">description</span>: <span style="color:#34d399">My first Capsule agent</span>
-
-<span style="color:#f87171">models</span>:
-  - <span style="color:#34d399">gemini-2.0-flash</span>
-
-<span style="color:#f87171">agents</span>:
-  - <span style="color:#f87171">name</span>: <span style="color:#34d399">main</span>
-    <span style="color:#f87171">prompt</span>: <span style="color:#34d399">prompts/system.md</span>
-    <span style="color:#f87171">model</span>: <span style="color:#34d399">gemini-2.0-flash</span>
-    <span style="color:#f87171">tools</span>:
-      - <span style="color:#34d399">my_tool</span></code></pre>
+<span style="color:#a5b4fc">$</span> capsule init refund-support-agent
+<span style="color:#a5b4fc">$</span> cd refund-support-agent
+<span class="comment"># The starter includes capsule.yaml, prompts, tools, examples, and tests.</span></code></pre>
                 </div>
 
                 <div id="pane-run" class="tab-pane" role="tabpanel" aria-labelledby="tab-run">
@@ -409,17 +449,35 @@
                         <span class="lang-label">Shell</span>
                         <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy run commands">Copy</button>
                     </div>
-                    <pre><code><span class="comment"># Validate your capsule</span>
+                    <pre><code><span class="comment"># Validate and scan your capsule</span>
+<span style="color:#a5b4fc">$</span> capsule validate
+<span style="color:#10b981">Validation passed.</span>
+
 <span style="color:#a5b4fc">$</span> capsule scan
-<span style="color:#10b981">✓ PASSED — 0 errors, 0 warnings</span>
+<span style="color:#fbbf24">warning security.risky_permission: draft_reply declares write_draft</span>
 
 <span class="comment"># Run your agent</span>
-<span style="color:#a5b4fc">$</span> capsule run --input '{"query": "hello"}'
-<span style="color:#60a5fa">Agent response: Hello! How can I help?</span>
+<span style="color:#a5b4fc">$</span> capsule run --input examples/refund-request.json --allow-all
+<span style="color:#60a5fa">trace path: triage -> responder</span>
 
 <span class="comment"># Run tests</span>
 <span style="color:#a5b4fc">$</span> capsule test
-<span style="color:#10b981">✓ 3/3 tests passed</span></code></pre>
+<span style="color:#10b981">All tests passed.</span></code></pre>
+                </div>
+
+                <div id="pane-compile" class="tab-pane" role="tabpanel" aria-labelledby="tab-compile">
+                    <div class="code-header">
+                        <span class="lang-label">Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy compile commands">Copy</button>
+                    </div>
+                    <pre><code><span class="comment"># Strongest no-key framework proof today</span>
+<span style="color:#a5b4fc">$</span> capsule compile --target langgraph
+<span style="color:#a5b4fc">$</span> uv run --with langgraph python dist/langgraph/main.py examples/refund-request.json
+<span style="color:#10b981">"last_node": "responder"</span>
+
+<span class="comment"># Generated/import-tested targets; full runs need model credentials</span>
+<span style="color:#a5b4fc">$</span> capsule compile --target crewai
+<span style="color:#a5b4fc">$</span> capsule compile --target openai-agents</code></pre>
                 </div>
 
             </div>
@@ -440,7 +498,7 @@
                     <img src="../logo.png" alt="Capsule logo" class="footer-logo" onerror="this.style.display='none'">
                     <span class="logo-text">Capsule</span>
                 </div>
-                <p>The open-source packaging and security runtime for AI agents. Define once, scan, run, and ship anywhere.</p>
+                <p>The open-source packaging, testing, and compiler layer for AI agent workflows. Define once, scan, run, and compile to supported runtimes.</p>
             </div>
             <div class="footer-links">
                 <h4>Project</h4>

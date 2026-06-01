@@ -10,7 +10,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Capsule is an open-source tool built to solve **framework lock-in** and improve **reproducibility** in AI agent development. Instead of building agent workflows tightly coupled to a single orchestration library, Capsule enables you to **define your workflow once in a framework-neutral spec, test it locally, and compile it to run on any target runtime.**
+Capsule is an open-source tool built to reduce **framework lock-in** and improve **reproducibility** in AI agent development. Instead of building agent workflows tightly coupled to a single orchestration library, Capsule lets you **define your workflow once in a framework-neutral spec, test it locally, and compile it to supported target runtimes.**
 
 ---
 
@@ -29,12 +29,28 @@ This leads to several critical issues:
 
 ## 🛠️ Key Features
 
-* **Define Once, Compile Anywhere:** Author your agents, prompts, local Python/MCP tools, and routing steps in a standard `capsule.yaml` file. Compile directly to **LangGraph**, **CrewAI Flows**, or **OpenAI Agents SDK** targets.
+* **Define Once, Compile to Supported Targets:** Author your agents, prompts, local Python/MCP tools, and routing steps in a standard `capsule.yaml` file. Compile directly to **LangGraph**, **CrewAI Flows**, or **OpenAI Agents SDK** targets.
 * **Runtime Permission Sandboxing:** Intercept tool calls dynamically at runtime. Enforce read, write, or custom scopes. Interactively request approval in terminals, or use pre-approval flags (`--allow-permission` / `--allow-all`) in script pipelines.
 * **Declarative Workflow Tests:** Run deterministic, YAML-defined test cases against your workflow with mocked tool responses, checking output values and execution paths.
 * **Static Security Scanning:** Instantly audit files, permissions, and tools using `capsule scan` to identify risky imports, shell executions, and permission violations.
 * **Lockfiles & Portable Bundles:** Build hermetic `.capsule` zip archives paired with a `capsule.lock` that pins asset hashes to guarantee reproducibility when sharing workflows.
 * **Interactive Documentation & Spec Explorer:** Explore all manifest configurations and guides via a beautiful, local documentation page (`docs/site/index.html`) featuring a reactive Spec Explorer.
+
+---
+
+## ✅ Current Compatibility Status
+
+Capsule is not a universal exporter for every AI framework yet. This is the current tested contract:
+
+| Target | Status | What to expect |
+| --- | --- | --- |
+| **Capsule local runtime** | ✅ Runnable | `capsule validate`, `capsule scan`, `capsule test`, `capsule run`, `capsule build`, and `capsule verify-bundle` work on the included starter project. |
+| **LangGraph** | ✅ Runnable generated output | `capsule compile --target langgraph` produces a native LangGraph project that runs end-to-end with local Python tools and no LLM API key for the starter workflow. |
+| **CrewAI Flows** | ✅ Generated and import-tested | `capsule compile --target crewai` produces a CrewAI Flow project with CrewAI `BaseTool` wrappers. Import smoke tests pass against real CrewAI on Python 3.12. Full native execution requires model/provider credentials such as `OPENAI_API_KEY`. |
+| **OpenAI Agents SDK** | ✅ Generated and import-tested | `capsule compile --target openai-agents` produces an OpenAI Agents SDK project that imports against the real package. Full native execution requires `OPENAI_API_KEY` or another configured provider. |
+| **Haystack / AutoGen / Semantic Kernel** | 🚧 Not supported yet | These are planned adapter targets. Today, `capsule compile --target haystack` is expected to return `Unsupported target: haystack`. |
+
+The strongest no-credential framework proof today is **LangGraph**. CrewAI and OpenAI Agents are valid generated adapter outputs, but their native runtimes call an LLM provider by design.
 
 ---
 
@@ -76,28 +92,30 @@ Test routing logic and outputs with mocked tool results:
 capsule test
 ```
 
-### 6. Compile to Your Favorite Framework
-Compile the neutral workflow definition into native target code of your choosing:
+### 6. Compile to a Supported Framework
+Compile the neutral workflow definition into native target code for one of the supported adapters:
 
 **Target 1: LangGraph**
 ```bash
 capsule compile --target langgraph
-# Run the compiled project natively:
+# Run the compiled project natively.
+# The starter workflow runs without an LLM key because its tools are deterministic.
 uv run --with langgraph python dist/langgraph/main.py examples/refund-request.json
 ```
 
 **Target 2: OpenAI Agents SDK**
 ```bash
 capsule compile --target openai-agents
-# Run the compiled project natively:
+# Full native execution requires OPENAI_API_KEY or another configured provider.
 uv run --with openai-agents python dist/openai-agents/main.py examples/refund-request.json
 ```
 
 **Target 3: CrewAI Flows**
 ```bash
 capsule compile --target crewai
-# Run the compiled project natively:
-uv run --with crewai python dist/crewai/main.py examples/refund-request.json
+# Use Python 3.12 for the current CrewAI dependency stack.
+# Full native execution requires model/provider credentials.
+uv run --python 3.12 --with crewai python dist/crewai/main.py examples/refund-request.json
 ```
 
 ### 7. Package and Verify
@@ -220,8 +238,8 @@ Current progress:
 - [x] `capsule.lock` generation and `.capsule` zip bundle creation.
 - [x] Bundle inspection and hash verification.
 - [x] LangGraph compiler adapter with runnable generated output.
-- [x] CrewAI Flow compiler adapter.
-- [x] OpenAI Agents SDK compiler adapter.
+- [x] CrewAI Flow compiler adapter with real-package import smoke test.
+- [x] OpenAI Agents SDK compiler adapter with real-package import smoke test.
 - [x] Declaration-only MCP tool support with mocked local tests.
 - [x] Refund support, MCP research, and translation editor example projects.
 - [x] Interactive documentation site and `capsule.yaml` Spec Explorer.
@@ -233,6 +251,7 @@ Next milestones:
 - [ ] Real MCP runtime orchestration with server startup, authorization prompts, and session pooling.
 - [ ] Hermetic Python tool sandboxing through gRPC, containers, or WASM.
 - [ ] Visual graph inspector and debugger.
+- [ ] No-credential native smoke test mode for every compiler target.
 - [ ] TypeScript runtime target.
 - [ ] Additional adapters for AutoGen, Haystack, and Semantic Kernel.
 - [ ] Docker or OCI image generation for compiled runtimes.
