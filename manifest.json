@@ -77,6 +77,10 @@
       "purpose": "OpenAI Agents SDK compiler adapter.",
       "status": "active"
     },
+    "src/capsule/adapters/crewai": {
+      "purpose": "CrewAI compiler adapter.",
+      "status": "active"
+    },
     "src/capsule/bundle": {
       "purpose": "Lockfile generation with schema/tool metadata, .capsule archive generation, bundle inspection, and bundle verification.",
       "status": "active"
@@ -287,6 +291,18 @@
     },
     "src/capsule/adapters/openai_agents/compiler.py": {
       "purpose": "Compiles a Capsule Graph into a readable OpenAI Agents SDK project with generated Python tool execution, stubs, and handoffs.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/adapters/crewai/__init__.py": {
+      "purpose": "CrewAI adapter package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/adapters/crewai/compiler.py": {
+      "purpose": "Compiles a Capsule Graph into a readable CrewAI Flow project with generated Python tool execution, stubs, and routing.",
       "type": "source",
       "manualEdit": true,
       "generated": false
@@ -525,6 +541,12 @@
       "manualEdit": true,
       "generated": false
     },
+    "tests/test_compile_crewai.py": {
+      "purpose": "Tests CrewAI Flow compiler output and generated agent structure.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
     "tests/test_runtime_testing.py": {
       "purpose": "Tests local runtime execution, input/output schema enforcement, and YAML workflow test runner.",
       "type": "test",
@@ -596,7 +618,6 @@
     "capsule.lock"
   ],
   "plannedFolders": {
-    "src/capsule/adapters/crewai": "Future CrewAI compiler adapter.",
     "src/capsule/adapters/haystack": "Future Haystack compiler adapter.",
     "src/capsule/registry": "Future publish/install registry support.",
     "src/capsule/policy": "Future richer security policy support."

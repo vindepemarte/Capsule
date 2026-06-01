@@ -142,18 +142,23 @@ def compile(
     target: str = typer.Option("langgraph", "--target", "-t", help="Compiler target."),
     output: Optional[Path] = typer.Option(None, "--output", "-o", help="Output folder."),
 ) -> None:
-    if target not in ("langgraph", "openai-agents"):
+    if target not in ("langgraph", "openai-agents", "crewai"):
         console.print(f"[red]Unsupported target:[/red] {target}")
         raise typer.Exit(1)
     context, graph = _load_valid_graph(path)
     if target == "langgraph":
         output_path = compile_langgraph(context, graph, output)
         console.print(f"[green]Generated LangGraph project:[/green] {output_path}")
-    else:
+    elif target == "openai-agents":
         from capsule.adapters.openai_agents.compiler import compile_openai_agents
 
         output_path = compile_openai_agents(context, graph, output)
         console.print(f"[green]Generated OpenAI Agents project:[/green] {output_path}")
+    else:
+        from capsule.adapters.crewai.compiler import compile_crewai
+
+        output_path = compile_crewai(context, graph, output)
+        console.print(f"[green]Generated CrewAI Flow project:[/green] {output_path}")
 
 
 @app.command()

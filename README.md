@@ -93,6 +93,13 @@ uv run capsule compile --target openai-agents
 uv run --with openai-agents python dist/openai-agents/main.py examples/refund-request.json
 ```
 
+**Target 3: CrewAI Flows**
+```bash
+uv run capsule compile --target crewai
+# Run the compiled project natively:
+uv run --with crewai python dist/crewai/main.py examples/refund-request.json
+```
+
 ### 7. Package and Verify
 Create a portable, locked bundle of your workflow for production or sharing:
 ```bash
@@ -181,7 +188,7 @@ tests:
 * `src/capsule/security/`: Permissions checks and static source scans.
 * `src/capsule/runtime/`: Local dev runner, schema enforcement, stubs.
 * `src/capsule/testing/`: Declarative YAML workflow test runner.
-* `src/capsule/adapters/`: Compiler targets (**LangGraph**, **OpenAI Agents SDK**).
+* `src/capsule/adapters/`: Compiler targets (**LangGraph**, **OpenAI Agents SDK**, **CrewAI**).
 * `src/capsule/bundle/`: Bundler engine, hash-verifier, and lockfile generator.
 
 ---
