@@ -1,0 +1,57 @@
+name: mcp-research-agent
+version: 0.1.0
+description: Demonstrates declaration-only MCP tool support with mocked tests.
+
+input_schema:
+  type: object
+  required:
+    - topic
+  properties:
+    topic:
+      type: string
+      minLength: 1
+  additionalProperties: true
+
+output_schema:
+  type: object
+  required:
+    - summary
+  properties:
+    summary:
+      type: string
+      minLength: 1
+  additionalProperties: true
+
+models:
+  default:
+    provider: local
+    model: deterministic-dev
+
+agents:
+  researcher:
+    prompt: agents/researcher.md
+    model: default
+    tools:
+      - web_lookup
+
+tools:
+  web_lookup:
+    type: mcp
+    server: browser
+    tool: search
+    permission: network_search
+
+workflow:
+  start: researcher
+  steps:
+    - id: researcher
+      type: agent
+      agent: researcher
+      output: summary
+
+permissions:
+  tools:
+    web_lookup: network_search
+
+tests:
+  - tests/research_topic.yaml

@@ -1,0 +1,605 @@
+{
+  "project": "Capsule",
+  "description": "Open-source Docker-like packaging, compiler, and runtime layer for AI agent workflows.",
+  "lastUpdated": "2026-06-01",
+  "sourceOfTruth": [
+    "plan.md",
+    "codex.md",
+    "gemini.md",
+    "manifest.json"
+  ],
+  "folders": {
+    ".": {
+      "purpose": "Project root for Capsule source-of-truth files, Python package metadata, docs, examples, and tests.",
+      "status": "active"
+    },
+    "docs": {
+      "purpose": "Human-readable implementation notes, MVP usage notes, and generated schema artifacts.",
+      "status": "active"
+    },
+    "examples": {
+      "purpose": "Checked-in Capsule workflow examples, including MVP Python tools and P1 MCP declarations.",
+      "status": "active"
+    },
+    "examples/mcp-research-agent": {
+      "purpose": "P1 example Capsule project demonstrating declaration-only MCP tools with mocked tests.",
+      "status": "active"
+    },
+    "examples/mcp-research-agent/agents": {
+      "purpose": "Prompt files for the MCP research example agents.",
+      "status": "active"
+    },
+    "examples/mcp-research-agent/examples": {
+      "purpose": "Input JSON examples for the MCP research workflow.",
+      "status": "active"
+    },
+    "examples/mcp-research-agent/tests": {
+      "purpose": "YAML Capsule workflow tests with mocked MCP tool output.",
+      "status": "active"
+    },
+    "examples/refund-support-agent": {
+      "purpose": "MVP example Capsule project used for CLI smoke checks and tests.",
+      "status": "active"
+    },
+    "examples/refund-support-agent/agents": {
+      "purpose": "Prompt files for the refund support example agents.",
+      "status": "active"
+    },
+    "examples/refund-support-agent/examples": {
+      "purpose": "Input JSON examples for running the refund support workflow.",
+      "status": "active"
+    },
+    "examples/refund-support-agent/tests": {
+      "purpose": "YAML Capsule workflow tests for the refund support example.",
+      "status": "active"
+    },
+    "examples/refund-support-agent/tools": {
+      "purpose": "Python tools used by the refund support example workflow.",
+      "status": "active"
+    },
+    "src": {
+      "purpose": "Python src-layout package root.",
+      "status": "active"
+    },
+    "src/capsule": {
+      "purpose": "Capsule Python package.",
+      "status": "active"
+    },
+    "src/capsule/adapters": {
+      "purpose": "Compiler adapters for target agent runtimes.",
+      "status": "active"
+    },
+    "src/capsule/adapters/langgraph": {
+      "purpose": "LangGraph compiler adapter.",
+      "status": "active"
+    },
+    "src/capsule/adapters/openai_agents": {
+      "purpose": "OpenAI Agents SDK compiler adapter.",
+      "status": "active"
+    },
+    "src/capsule/bundle": {
+      "purpose": "Lockfile generation with schema/tool metadata, .capsule archive generation, bundle inspection, and bundle verification.",
+      "status": "active"
+    },
+    "src/capsule/cli": {
+      "purpose": "Typer CLI commands and Rich terminal rendering.",
+      "status": "active"
+    },
+    "src/capsule/graph": {
+      "purpose": "Framework-neutral Capsule Graph models, builder, JSON serialization, and inspection output.",
+      "status": "active"
+    },
+    "src/capsule/history": {
+      "purpose": "SQLite-backed local run history models and storage.",
+      "status": "active"
+    },
+    "src/capsule/project": {
+      "purpose": "Starter Capsule project scaffolding.",
+      "status": "active"
+    },
+    "src/capsule/runtime": {
+      "purpose": "Local Capsule graph execution, input/output schema enforcement, Python tool loading, and mocked MCP declaration handling.",
+      "status": "active"
+    },
+    "src/capsule/security": {
+      "purpose": "Permission checks, static security scans, MCP declaration warnings, and security helpers.",
+      "status": "active"
+    },
+    "src/capsule/spec": {
+      "purpose": "capsule.yaml schema models, Python/MCP tool declaration shapes, payload JSON Schema helpers, manifest JSON Schema generation, YAML loading, and safe path helpers.",
+      "status": "active"
+    },
+    "src/capsule/testing": {
+      "purpose": "YAML workflow test models and test runner.",
+      "status": "active"
+    },
+    "src/capsule/validate": {
+      "purpose": "Validation diagnostics and project validation rules for schemas, tools, workflow, and security-sensitive declarations.",
+      "status": "active"
+    },
+    "tests": {
+      "purpose": "Automated tests for the Capsule MVP vertical slice and P1 extension slices.",
+      "status": "active"
+    }
+  },
+  "files": {
+    ".gitignore": {
+      "purpose": "Ignores local environments, generated caches, generated dist outputs, generated Capsule lockfiles, and local .capsule run history folders.",
+      "type": "project-config",
+      "manualEdit": true,
+      "generated": false
+    },
+    "README.md": {
+      "purpose": "Short project introduction, developer quickstart, input/output schema note, MVP example commands, and MCP declaration example commands.",
+      "type": "documentation",
+      "manualEdit": true,
+      "generated": false
+    },
+    "docs/capsule.schema.json": {
+      "purpose": "Generated JSON Schema for capsule.yaml editor tooling and external validation, including Python and MCP tool declarations.",
+      "type": "generated-doc",
+      "manualEdit": false,
+      "generated": true
+    },
+    "codex.md": {
+      "purpose": "Development rules and implementation map for keeping Capsule modular, secure, beginner-readable, source-of-truth aligned, and easy to navigate.",
+      "type": "source-of-truth",
+      "manualEdit": true,
+      "generated": false
+    },
+    "gemini.md": {
+      "purpose": "AI development rules and checklists followed by Gemini when working on Capsule.",
+      "type": "source-of-truth",
+      "manualEdit": true,
+      "generated": false
+    },
+    "docs/mvp.md": {
+      "purpose": "MVP usage notes, P1 MCP declaration notes, and CLI commands for checked-in example workflows.",
+      "type": "documentation",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/refund-support-agent/agents/responder.md": {
+      "purpose": "Responder prompt for the refund support example.",
+      "type": "example-asset",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/refund-support-agent/agents/triage.md": {
+      "purpose": "Triage prompt for the refund support example.",
+      "type": "example-asset",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/refund-support-agent/capsule.yaml": {
+      "purpose": "Checked-in Capsule manifest for the refund support MVP example, including input and output JSON Schemas.",
+      "type": "example-manifest",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/refund-support-agent/examples/refund-request.json": {
+      "purpose": "JSON input used to run the refund support example workflow.",
+      "type": "example-input",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/refund-support-agent/tests/refund_request.yaml": {
+      "purpose": "Capsule workflow test case for the refund support example.",
+      "type": "example-test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/refund-support-agent/tools/draft_reply.py": {
+      "purpose": "Example Python tool that drafts the final refund reply.",
+      "type": "example-tool",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/refund-support-agent/tools/policy_search.py": {
+      "purpose": "Example Python tool that returns refund policy and routing data.",
+      "type": "example-tool",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/mcp-research-agent/agents/researcher.md": {
+      "purpose": "Researcher prompt for the MCP declaration example.",
+      "type": "example-asset",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/mcp-research-agent/capsule.yaml": {
+      "purpose": "Checked-in Capsule manifest demonstrating declaration-only MCP tool metadata and payload schemas.",
+      "type": "example-manifest",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/mcp-research-agent/examples/topic.json": {
+      "purpose": "JSON input used to demonstrate the MCP research example.",
+      "type": "example-input",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/mcp-research-agent/tests/research_topic.yaml": {
+      "purpose": "Capsule workflow test case that mocks an MCP tool result.",
+      "type": "example-test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "manifest.json": {
+      "purpose": "Navigation map of every important file and folder in the Capsule project. Must be updated whenever structure changes.",
+      "type": "source-of-truth",
+      "manualEdit": true,
+      "generated": false
+    },
+    "plan.md": {
+      "purpose": "Production PRD for Capsule covering vision, positioning, users, MVP scope, architecture, public interfaces, security requirements, roadmap, risks, and acceptance criteria.",
+      "type": "source-of-truth",
+      "manualEdit": true,
+      "generated": false
+    },
+    "pyproject.toml": {
+      "purpose": "Python project metadata, runtime/dev dependencies, CLI entrypoint, pytest config, Ruff config, and Hatch package selection.",
+      "type": "project-config",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/__init__.py": {
+      "purpose": "Package metadata.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/__main__.py": {
+      "purpose": "Enables running Capsule with python -m capsule.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/adapters/__init__.py": {
+      "purpose": "Adapters package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/adapters/langgraph/__init__.py": {
+      "purpose": "LangGraph adapter package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/adapters/langgraph/compiler.py": {
+      "purpose": "Compiles a Capsule Graph into a readable LangGraph project with generated Python tool execution, declaration-only MCP stubs, and branch routing.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/adapters/openai_agents/__init__.py": {
+      "purpose": "OpenAI Agents SDK adapter package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/adapters/openai_agents/compiler.py": {
+      "purpose": "Compiles a Capsule Graph into a readable OpenAI Agents SDK project with generated Python tool execution, stubs, and handoffs.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/bundle/__init__.py": {
+      "purpose": "Bundle package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/bundle/builder.py": {
+      "purpose": "Builds .capsule zip archives from validated project assets, copying Python tool files while preserving declaration-only tools through metadata.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/bundle/inspector.py": {
+      "purpose": "Inspects .capsule archives and reports metadata, lockfile presence, manifest presence, and included files.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/bundle/lockfile.py": {
+      "purpose": "Builds capsule.lock data with schema metadata, tool metadata, Python tool hashes, and writes lockfiles.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/bundle/verifier.py": {
+      "purpose": "Verifies .capsule archive structure, schema metadata, tool metadata, and prompt/Python-tool/test hashes against capsule.lock.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/cli/__init__.py": {
+      "purpose": "CLI package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/cli/app.py": {
+      "purpose": "Typer CLI commands for init, validate, scan, schema, graph, inspect, run, history, show-run, test, compile, build, inspect-bundle, and verify-bundle.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/cli/render.py": {
+      "purpose": "Rich terminal rendering helpers for validation, security scans, test reports, bundle inspection, bundle verification, run history, and run records.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/graph/__init__.py": {
+      "purpose": "Graph package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/graph/builder.py": {
+      "purpose": "Builds the framework-neutral Capsule Graph from a loaded project.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/graph/inspect.py": {
+      "purpose": "Creates readable Capsule Graph summaries, including schema declarations, for the inspect command.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/graph/models.py": {
+      "purpose": "Capsule Graph Pydantic models, including neutral input and output schema fields.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/graph/serialize.py": {
+      "purpose": "Serializes the framework-neutral Capsule Graph to JSON for debugging and tooling.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/history/__init__.py": {
+      "purpose": "History package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/history/models.py": {
+      "purpose": "Run history Pydantic models and local SQLite path helper.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/history/store.py": {
+      "purpose": "SQLite storage API for recording, listing, and reading local Capsule runs.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/project/__init__.py": {
+      "purpose": "Project scaffolding package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/project/scaffold.py": {
+      "purpose": "Creates starter Capsule projects for capsule init, including payload schemas and starter .gitignore rules for generated history and build artifacts.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/runtime/__init__.py": {
+      "purpose": "Runtime package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/runtime/executor.py": {
+      "purpose": "Executes Capsule Graph workflows locally with input/output schema enforcement, branching, human gates, permissions, Python tool calls, and mocked MCP tool handling.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/runtime/tool_loader.py": {
+      "purpose": "Loads and calls declared Python tool entrypoints safely within the project.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/runtime/trace.py": {
+      "purpose": "Run trace and run result models.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/security/__init__.py": {
+      "purpose": "Security package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/security/permissions.py": {
+      "purpose": "Permission enforcement for declared tools.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/security/scan.py": {
+      "purpose": "Static security scanner for risky permission labels, declaration-only MCP tools, and risky Python tool source patterns.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/spec/__init__.py": {
+      "purpose": "Spec package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/spec/loader.py": {
+      "purpose": "Loads capsule.yaml into a ProjectContext.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/spec/models.py": {
+      "purpose": "Pydantic models for capsule.yaml, including Python/MCP tool declarations and optional input_schema/output_schema declarations.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/spec/paths.py": {
+      "purpose": "Safe project path and Python tool entrypoint helpers.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/spec/payload_schema.py": {
+      "purpose": "Shared JSON Schema validation helpers for manifest-declared input and output payload schemas.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/spec/schema.py": {
+      "purpose": "Generates the Capsule manifest JSON Schema from Pydantic models.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/testing/__init__.py": {
+      "purpose": "Testing package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/testing/models.py": {
+      "purpose": "Pydantic models for Capsule YAML workflow tests and reports.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/testing/runner.py": {
+      "purpose": "Runs Capsule workflow tests with mocked tool responses, schema failure reporting, and assertions.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/validate/__init__.py": {
+      "purpose": "Validation package marker.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/validate/diagnostics.py": {
+      "purpose": "Diagnostic and validation report models.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "src/capsule/validate/rules.py": {
+      "purpose": "Validation rules for manifests, payload schemas, paths, workflow edges, tools, permissions, tests, and static security warnings.",
+      "type": "source",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_bundle_and_compile.py": {
+      "purpose": "Tests bundle creation, bundle inspection, schema lock metadata verification, LangGraph compiler output, and generated adapter runtime parity.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_compile_openai_agents.py": {
+      "purpose": "Tests OpenAI Agents SDK compiler output and generated agent structure.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_runtime_testing.py": {
+      "purpose": "Tests local runtime execution, input/output schema enforcement, and YAML workflow test runner.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_graph_cli.py": {
+      "purpose": "Tests graph CLI JSON output and graph file writing.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_scaffold.py": {
+      "purpose": "Tests project scaffolding, generated project ignore rules, and the capsule init CLI path.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_schema.py": {
+      "purpose": "Tests manifest JSON Schema generation, Python/MCP tool schema shape, and schema CLI output/write behavior.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_history.py": {
+      "purpose": "Tests SQLite-backed run history storage plus run, history, show-run, and no-history CLI behavior.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_mcp_tools.py": {
+      "purpose": "Tests declaration-only MCP tool validation, mocked runtime behavior, security visibility, bundling, and LangGraph compilation metadata.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_security_scan.py": {
+      "purpose": "Tests static security scan warnings for risky permissions, risky tool source patterns, and scan CLI output.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_validation_errors.py": {
+      "purpose": "Tests actionable validation errors for missing prompts, unknown tools, invalid workflow edges, undeclared permissions, and invalid payload schemas.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_spec_validate_graph.py": {
+      "purpose": "Tests manifest loading, validation, Capsule Graph building with payload schemas, and graph serialization.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "uv.lock": {
+      "purpose": "uv dependency lockfile generated from pyproject.toml.",
+      "type": "lockfile",
+      "manualEdit": false,
+      "generated": true
+    }
+  },
+  "generatedIgnored": [
+    ".venv/",
+    ".pytest_cache/",
+    ".ruff_cache/",
+    "__pycache__/",
+    ".capsule/",
+    "dist/",
+    "capsule.lock"
+  ],
+  "plannedFolders": {
+    "src/capsule/adapters/crewai": "Future CrewAI compiler adapter.",
+    "src/capsule/adapters/haystack": "Future Haystack compiler adapter.",
+    "src/capsule/registry": "Future publish/install registry support.",
+    "src/capsule/policy": "Future richer security policy support."
+  },
+  "rules": {
+    "maxNormalSourceFileLines": 500,
+    "manifestMustStayCurrent": true,
+    "frameworkSpecificLogicMustStayOutOfCoreGraph": true,
+    "securityReviewRequiredForToolsSecretsNetworkAndExecution": true,
+    "beginnerReadableStructureRequired": true
+  }
+}

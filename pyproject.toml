@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "capsule-agent"
+version = "0.1.0"
+description = "Portable packaging, testing, and compiler layer for AI agent workflows."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [
+  { name = "Capsule Maintainers" }
+]
+dependencies = [
+  "jsonschema>=4.23",
+  "pydantic>=2.8",
+  "pyyaml>=6.0",
+  "rich>=13.7",
+  "typer>=0.12"
+]
+
+[project.scripts]
+capsule = "capsule.cli.app:main"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "ruff>=0.8"
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/capsule"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,13 @@
+name: mocked MCP research produces summary
+input:
+  topic: "portable agent workflow packaging"
+mock_tools:
+  web_lookup:
+    summary: "Capsule packages agent workflows so they can be validated, tested, and compiled."
+expect:
+  path:
+    - researcher
+  output_contains:
+    summary: "validated"
+  tool_calls:
+    - web_lookup

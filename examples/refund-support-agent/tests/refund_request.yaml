@@ -1,0 +1,18 @@
+name: refund request routes to responder
+input:
+  message: "I want a refund for my last order."
+mock_tools:
+  policy_search:
+    route: approved
+    policy: "Refunds are available within 30 days."
+  draft_reply:
+    final_reply: "Thanks for reaching out. Refunds are available within 30 days."
+expect:
+  path:
+    - triage
+    - responder
+  output_contains:
+    final_reply: "refund"
+  tool_calls:
+    - policy_search
+    - draft_reply
