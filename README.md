@@ -29,11 +29,12 @@ This leads to several critical issues:
 
 ## 🛠️ Key Features
 
-* **Define Once, Compile Anywhere:** Author your agents, prompts, local Python/MCP tools, and routing steps in a standard `capsule.yaml` file. Compile directly to **LangGraph** or **OpenAI Agents SDK** targets.
+* **Define Once, Compile Anywhere:** Author your agents, prompts, local Python/MCP tools, and routing steps in a standard `capsule.yaml` file. Compile directly to **LangGraph**, **CrewAI Flows**, or **OpenAI Agents SDK** targets.
+* **Runtime Permission Sandboxing:** Intercept tool calls dynamically at runtime. Enforce read, write, or custom scopes. Interactively request approval in terminals, or use pre-approval flags (`--allow-permission` / `--allow-all`) in script pipelines.
 * **Declarative Workflow Tests:** Run deterministic, YAML-defined test cases against your workflow with mocked tool responses, checking output values and execution paths.
 * **Static Security Scanning:** Instantly audit files, permissions, and tools using `capsule scan` to identify risky imports, shell executions, and permission violations.
 * **Lockfiles & OCI-Ready Bundles:** Build hermetic `.capsule` zip archives paired with a `capsule.lock` that pins asset hashes to guarantee reproducibility when sharing workflows.
-* **Local Developer Runtime:** Execute your workflow locally with direct validation of JSON inputs and outputs against schemas before runtime begins.
+* **Interactive Documentation & Spec Explorer:** Explore all manifest configurations and guides via a beautiful, local documentation page (`docs/site/index.html`) featuring a reactive Spec Explorer.
 
 ---
 
@@ -182,11 +183,12 @@ tests:
 
 ## 🗺️ Project Navigation
 
+* `docs/site/`: The Interactive Web Documentation & YAML Spec Explorer.
 * `src/capsule/spec/`: Manifest models, YAML loading, and schemas.
 * `src/capsule/graph/`: Framework-neutral dependency and workflow graph.
 * `src/capsule/validate/`: Integrity rules and path diagnostics.
 * `src/capsule/security/`: Permissions checks and static source scans.
-* `src/capsule/runtime/`: Local dev runner, schema enforcement, stubs.
+* `src/capsule/runtime/`: Local dev runner, runtime permissions checking, schema enforcement.
 * `src/capsule/testing/`: Declarative YAML workflow test runner.
 * `src/capsule/adapters/`: Compiler targets (**LangGraph**, **OpenAI Agents SDK**, **CrewAI**).
 * `src/capsule/bundle/`: Bundler engine, hash-verifier, and lockfile generator.
@@ -195,7 +197,7 @@ tests:
 
 ## 🤝 Contributing
 
-We welcome contributions of all kinds! If you'd like to implement new compiler targets (e.g., CrewAI, Haystack, or TypeScript adapters), enrich security rules, or build UI dashboards:
+We welcome contributions of all kinds! If you'd like to implement new compiler targets (e.g., AutoGen, Haystack, or TypeScript adapters), enrich security rules, or build UI dashboards:
 1. Fork the repo and create your branch.
 2. Ensure all tests pass: `uv run pytest`.
 3. Format with ruff: `uv run ruff format .` and `uv run ruff check .`.
@@ -209,9 +211,9 @@ Capsule's ultimate goal is to become the **universal packaging, distribution, an
 
 To give creators, developers, and enterprises a unified target, we are actively working towards the following milestones:
 
-* **More Compiler Adapters:** Build compilation engines for **CrewAI**, **Haystack**, and native **TypeScript** runtimes so agent workflows can migrate seamlessly between ecosystems.
+* **More Compiler Adapters:** Build compilation engines for **AutoGen**, **Haystack**, **Semantic Kernel**, and native **TypeScript** runtimes so agent workflows can migrate seamlessly between ecosystems.
 * **Unified Agent Registry:** A decentralized registry platform (similar to Docker Hub or npm) where teams can publish, version, and download pre-tested, verified `.capsule` agent bundles.
-* **Hermetic Security Policies & Sandboxing:** Execute local Python tools inside secure, isolated sandboxes with strict runtime limits, and implement signed bundles to guarantee authenticity.
+* **Hermetic Security Policies & Sandboxing:** Execute local Python tools inside gRPC sandboxes or WASM containers with strict execution policies (extending the active runtime permissions engine).
 * **Visual Graph Inspector & Debugger:** A visual GUI tool to inspect the neutral execution graph, trace active tokens, analyze agent handoffs, and audit decision branches.
 * **MCP Integration Engine:** Move from declaration-only MCP tools to real runtime orchestration with automatic MCP server startup, security authorization prompts, and session pooling.
 
