@@ -6,9 +6,9 @@
 
 **Docker-like packaging, compilation, and testing layer for AI agent workflows.**
 
-[![PyPI version](https://img.shields.io/badge/pypi-v0.1.0-blue.svg)](https://pypi.org/project/capsule-agent/)
+[![Install from GitHub](https://img.shields.io/badge/install-pip%20git%2Bgithub-2ea44f.svg)](https://github.com/vindepemarte/Capsule)
 [![Python Version](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Capsule is an open-source tool built to solve **framework lock-in** and improve **reproducibility** in AI agent development. Instead of building agent workflows tightly coupled to a single orchestration library, Capsule enables you to **define your workflow once in a framework-neutral spec, test it locally, and compile it to run on any target runtime.**
 
@@ -41,17 +41,16 @@ This leads to several critical issues:
 ## 📖 Quickstart Tutorial
 
 ### 1. Installation
-Install the CLI via `pip` (or use `uv`):
+Install the CLI directly from GitHub:
 ```bash
-pip install capsule-agent
-# Or check the CLI options using uv
-uv run capsule --help
+pip install git+https://github.com/vindepemarte/Capsule.git
+capsule --help
 ```
 
 ### 2. Scaffold a New Project
 Initialize a starter Capsule template:
 ```bash
-uv run capsule init customer-support-agent
+capsule init customer-support-agent
 cd customer-support-agent
 ```
 
@@ -59,22 +58,22 @@ cd customer-support-agent
 Verify the project structure and audit security boundaries:
 ```bash
 # Validate manifest paths, schema links, and routing connections
-uv run capsule validate
+capsule validate
 
 # Scan for security risks, undeclared tool parameters, and dangerous imports
-uv run capsule scan
+capsule scan
 ```
 
 ### 4. Run the Workflow Locally
 Execute the agent workflow using Capsule's local development runtime:
 ```bash
-uv run capsule run --input examples/refund-request.json
+capsule run --input examples/refund-request.json --allow-all
 ```
 
 ### 5. Run Workflow Tests
 Test routing logic and outputs with mocked tool results:
 ```bash
-uv run capsule test
+capsule test
 ```
 
 ### 6. Compile to Your Favorite Framework
@@ -82,21 +81,21 @@ Compile the neutral workflow definition into native target code of your choosing
 
 **Target 1: LangGraph**
 ```bash
-uv run capsule compile --target langgraph
+capsule compile --target langgraph
 # Run the compiled project natively:
 uv run --with langgraph python dist/langgraph/main.py examples/refund-request.json
 ```
 
 **Target 2: OpenAI Agents SDK**
 ```bash
-uv run capsule compile --target openai-agents
+capsule compile --target openai-agents
 # Run the compiled project natively:
 uv run --with openai-agents python dist/openai-agents/main.py examples/refund-request.json
 ```
 
 **Target 3: CrewAI Flows**
 ```bash
-uv run capsule compile --target crewai
+capsule compile --target crewai
 # Run the compiled project natively:
 uv run --with crewai python dist/crewai/main.py examples/refund-request.json
 ```
@@ -105,10 +104,10 @@ uv run --with crewai python dist/crewai/main.py examples/refund-request.json
 Create a portable, locked bundle of your workflow for production or sharing:
 ```bash
 # Build the .capsule bundle and generate capsule.lock
-uv run capsule build
+capsule build
 
 # Verify a bundle's files against lockfile hashes before execution
-uv run capsule verify-bundle dist/customer-support-agent-0.1.0.capsule
+capsule verify-bundle dist/customer-support-agent-0.1.0.capsule
 ```
 
 ---

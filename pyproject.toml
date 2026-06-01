@@ -12,6 +12,17 @@ license = "MIT"
 authors = [
   { name = "Capsule Maintainers" }
 ]
+keywords = ["ai-agents", "agent-framework", "workflow", "compiler", "packaging", "langgraph", "crewai", "mcp"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Build Tools",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
   "jsonschema>=4.23",
   "pydantic>=2.8",
@@ -22,6 +33,12 @@ dependencies = [
 
 [project.scripts]
 capsule = "capsule.cli.app:main"
+
+[project.urls]
+Homepage = "https://github.com/vindepemarte/Capsule"
+Documentation = "https://vindepemarte.github.io/Capsule/"
+Repository = "https://github.com/vindepemarte/Capsule"
+Issues = "https://github.com/vindepemarte/Capsule/issues"
 
 [dependency-groups]
 dev = [

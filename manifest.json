@@ -158,8 +158,14 @@
       "generated": false
     },
     "README.md": {
-      "purpose": "Short project introduction, developer quickstart, input/output schema note, example commands, and checkbox roadmap.",
+      "purpose": "Short project introduction, GitHub pip install quickstart, input/output schema note, example commands, and checkbox roadmap.",
       "type": "documentation",
+      "manualEdit": true,
+      "generated": false
+    },
+    "LICENSE": {
+      "purpose": "MIT open-source license for Capsule.",
+      "type": "legal",
       "manualEdit": true,
       "generated": false
     },
@@ -344,7 +350,7 @@
       "generated": false
     },
     "pyproject.toml": {
-      "purpose": "Python project metadata, runtime/dev dependencies, CLI entrypoint, pytest config, Ruff config, and Hatch package selection.",
+      "purpose": "Python project metadata, license and project URLs, runtime/dev dependencies, CLI entrypoint, pytest config, Ruff config, and Hatch package selection.",
       "type": "project-config",
       "manualEdit": true,
       "generated": false
