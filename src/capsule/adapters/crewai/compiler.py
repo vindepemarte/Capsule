@@ -78,6 +78,7 @@ def _render_main(graph: CapsuleGraph) -> str:
     lines = [
         "from __future__ import annotations",
         "",
+        "import inspect",
         "import importlib.util",
         "import json",
         "import sys",
@@ -86,7 +87,8 @@ def _render_main(graph: CapsuleGraph) -> str:
         "",
         "from crewai import Agent, Crew, Task",
         "from crewai.flow.flow import Flow, listen, router, start",
-        "from pydantic import BaseModel",
+        "from crewai.tools import BaseTool",
+        "from pydantic import BaseModel, PrivateAttr, create_model",
         "",
         "",
         "BASE_DIR = Path(__file__).resolve().parent",
@@ -124,6 +126,52 @@ def _render_main(graph: CapsuleGraph) -> str:
         "    if not callable(loaded):",
         "        raise RuntimeError(f\"Tool is not callable: {tool['name']}\")",
         "    return loaded",
+        "",
+        "def _call_tool(tool_fn, state: dict[str, Any], kwargs: dict[str, Any]) -> Any:",
+        "    parameters = list(inspect.signature(tool_fn).parameters.values())",
+        "    if not parameters:",
+        "        return tool_fn()",
+        "    if len(parameters) == 1 and parameters[0].name not in kwargs:",
+        "        return tool_fn(state)",
+        "    call_kwargs = {",
+        "        param.name: kwargs.get(param.name, state.get(param.name))",
+        "        for param in parameters",
+        "        if param.kind not in (param.VAR_POSITIONAL, param.VAR_KEYWORD)",
+        "        and (param.name in kwargs or param.name in state)",
+        "    }",
+        "    return tool_fn(**call_kwargs)",
+        "",
+        "def _args_schema(name: str, tool_fn):",
+        "    fields: dict[str, Any] = {}",
+        "    for param in inspect.signature(tool_fn).parameters.values():",
+        "        if param.kind in (param.VAR_POSITIONAL, param.VAR_KEYWORD):",
+        "            continue",
+        "        if param.name == 'state':",
+        "            continue",
+        "        annotation = param.annotation if param.annotation is not inspect.Parameter.empty else Any",
+        "        default = ... if param.default is inspect.Parameter.empty else param.default",
+        "        fields[param.name] = (annotation, default)",
+        "    schema_name = ''.join(part.title() for part in name.split('_')) + 'Args'",
+        "    return create_model(schema_name, **fields)",
+        "",
+        "class CapsuleTool(BaseTool):",
+        "    _func: Any = PrivateAttr()",
+        "    _state_getter: Any = PrivateAttr()",
+        "",
+        "    def __init__(self, name: str, func, state_getter):",
+        "        super().__init__(",
+        "            name=name,",
+        "            description=f\"Run Capsule tool '{name}' against the current workflow state.\",",
+        "            args_schema=_args_schema(name, func),",
+        "        )",
+        "        self._func = func",
+        "        self._state_getter = state_getter",
+        "",
+        "    def _run(self, **kwargs: Any) -> Any:",
+        "        return _call_tool(self._func, self._state_getter(), kwargs)",
+        "",
+        "def _make_tool(name: str, func, state_getter) -> CapsuleTool:",
+        "    return CapsuleTool(name, func, state_getter)",
         "",
         "# --- Tools Configuration ---",
         tools_block,
@@ -180,7 +228,10 @@ def _render_node_method(graph: CapsuleGraph, node: GraphNode) -> str:
             body = f"self.state.last_node = '{node.id}'"
         else:
             agent = graph.agents[node.agent]
-            tools_list = ", ".join(agent.tools)
+            tools_list = ", ".join(
+                f"_make_tool('{tool_name}', {tool_name}, lambda: self.state.model_dump())"
+                for tool_name in agent.tools
+            )
 
             # CrewAI execution block
             body = (

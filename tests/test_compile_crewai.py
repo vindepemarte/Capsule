@@ -27,7 +27,10 @@ def test_crewai_compiler_generates_readable_project(tmp_path):
 
     main_content = (output / "main.py").read_text(encoding="utf-8")
     assert "from crewai.flow.flow import Flow, listen, router, start" in main_content
+    assert "from crewai.tools import BaseTool" in main_content
     assert "class CapsuleFlow(Flow[State]):" in main_content
+    assert "class CapsuleTool(BaseTool):" in main_content
+    assert "_make_tool('policy_search', policy_search" in main_content
     assert "def triage(self)" in main_content
     assert "def route_triage(self, previous_result)" in main_content
 
@@ -55,8 +58,17 @@ def test_generated_crewai_project_structure(tmp_path, monkeypatch):
     mock_flow.listen = lambda *args, **kwargs: lambda f: f
     mock_flow.router = lambda *args, **kwargs: lambda f: f
 
+    mock_tools = types.ModuleType("crewai.tools")
+
+    class FakeBaseTool:
+        def __init__(self, **kwargs):
+            self.__dict__.update(kwargs)
+
+    mock_tools.BaseTool = FakeBaseTool
+
     monkeypatch.setitem(sys.modules, "crewai", mock_crewai)
     monkeypatch.setitem(sys.modules, "crewai.flow.flow", mock_flow)
+    monkeypatch.setitem(sys.modules, "crewai.tools", mock_tools)
 
     # Dynamically load the generated main.py
     spec = importlib.util.spec_from_file_location("_generated_capsule_crewai", output / "main.py")
