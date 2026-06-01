@@ -175,6 +175,12 @@
       "manualEdit": true,
       "generated": false
     },
+    "docs/logo.svg": {
+      "purpose": "Vector source representation of the Glowing Core Capsule logo.",
+      "type": "documentation",
+      "manualEdit": true,
+      "generated": false
+    },
     "codex.md": {
       "purpose": "Development rules and implementation map for keeping Capsule modular, secure, beginner-readable, source-of-truth aligned, and easy to navigate.",
       "type": "source-of-truth",
