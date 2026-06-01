@@ -435,9 +435,9 @@ It should pin:
 
 The MVP does not guarantee deterministic LLM output. It guarantees that the workflow structure and referenced assets are pinned.
 
-## MVP Out Of Scope
+## Still Out Of Scope
 
-The following are not required for the first production-quality demo:
+The following are still outside the current implemented release:
 
 - Hosted cloud platform.
 - Visual workflow builder.
@@ -448,15 +448,13 @@ The following are not required for the first production-quality demo:
 - Full MCP execution.
 - TypeScript runtime.
 - Dify export.
-- CrewAI adapter.
-- OpenAI Agents SDK adapter.
 - Haystack adapter.
 - Distributed execution.
 - Advanced RAG pipeline management.
 - Long-term memory engine.
 - Production monitoring dashboard.
 
-These are roadmap items only after the core abstraction proves useful.
+CrewAI and OpenAI Agents SDK compilation started as post-MVP roadmap items and are now implemented P1 features.
 
 ## Recommended Technical Stack
 

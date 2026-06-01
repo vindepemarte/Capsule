@@ -158,7 +158,7 @@
       "generated": false
     },
     "README.md": {
-      "purpose": "Short project introduction, developer quickstart, input/output schema note, MVP example commands, and MCP declaration example commands.",
+      "purpose": "Short project introduction, developer quickstart, input/output schema note, example commands, and checkbox roadmap.",
       "type": "documentation",
       "manualEdit": true,
       "generated": false
@@ -168,6 +168,12 @@
       "type": "generated-doc",
       "manualEdit": false,
       "generated": true
+    },
+    "docs/index.html": {
+      "purpose": "GitHub Pages entrypoint that redirects from the /docs publish root to the interactive documentation site.",
+      "type": "documentation",
+      "manualEdit": true,
+      "generated": false
     },
     "docs/logo.png": {
       "purpose": "Project logo displayed in the README and documentation.",

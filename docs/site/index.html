@@ -4,361 +4,461 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capsule | The Packaging & Security Layer for AI Agents</title>
-    <meta name="description" content="Capsule is an open-source, framework-agnostic compiler and runtime layer for AI agents. Pack, run, verify, and compile workflows to LangGraph, CrewAI, and OpenAI Agents.">
-    <!-- Google Fonts -->
+    <meta name="description" content="Capsule is the open-source packaging and security runtime for AI agents. Define agents as code, run them safely anywhere.">
+    <meta name="keywords" content="AI agents, LLM tools, agent framework, Python, capsule, security, MCP, packaging">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- CSS Stylesheet -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background Decorative Blobs -->
-    <div class="bg-decorations">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
 
-    <!-- Header Navigation -->
-    <header id="main-header" class="glass-panel">
-        <div class="container header-container">
-            <div class="logo-area">
-                <img src="../logo.png" alt="Capsule Logo" class="header-logo" onerror="this.style.display='none';">
-                <span class="logo-text">Capsule</span>
-            </div>
-            <nav id="nav-menu">
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#quickstart" class="nav-link">Quickstart</a>
-                <a href="#spec-explorer" class="nav-link">Spec Explorer</a>
-                <a href="#commands" class="nav-link">CLI Commands</a>
-            </nav>
-            <div class="header-actions">
-                <a href="https://github.com/vindepemarte/Capsule" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-icon" id="github-link">
-                    <svg viewBox="0 0 24 24" class="icon-svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    <span>GitHub</span>
-                </a>
-            </div>
+<div class="bg-decorations" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<!-- ===========================
+     HEADER
+     =========================== -->
+<header id="main-header">
+    <div class="glass-panel header-container">
+        <div class="logo-area">
+            <img src="../logo.png" alt="Capsule logo" class="header-logo" onerror="this.style.display='none'">
+            <span class="logo-text">Capsule</span>
         </div>
-    </header>
+        <nav aria-label="Primary navigation">
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#spec-explorer" class="nav-link">Schema</a>
+            <a href="#quickstart" class="nav-link">Quickstart</a>
+            <a href="#security-runtime" class="nav-link">Security</a>
+        </nav>
+        <a href="https://github.com/vindepemarte/Capsule" target="_blank" rel="noopener" class="btn btn-secondary btn-icon" style="padding:8px 16px; font-size:13px;">
+            <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+            GitHub
+        </a>
+    </div>
+</header>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="hero">
-            <div class="container hero-container">
-                <div class="hero-content">
-                    <div class="badge-pill">v0.1.0 Released</div>
-                    <h1 class="hero-title">The Packaging &amp; Security Layer for <span class="gradient-text">AI Agents</span></h1>
-                    <p class="hero-subtitle">Like Docker for agent workflows. Declare, run, test, and compile framework-neutral AI configurations with built-in runtime permission boundaries.</p>
-                    <div class="hero-buttons">
-                        <a href="#quickstart" class="btn btn-primary">Get Started</a>
-                        <a href="#spec-explorer" class="btn btn-secondary">Explore capsule.yaml</a>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="terminal-mockup glass-panel">
-                        <div class="terminal-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span class="terminal-title">capsule run</span>
-                        </div>
-                        <div class="terminal-body font-mono">
-                            <div class="line"><span class="cmd-prompt">$</span> uv run capsule run examples/translation-editor-agent</div>
-                            <div class="line info">🎯 Loading Capsule project 'translation-editor-agent' (v0.1.0)</div>
-                            <div class="line info">🔒 Validating runtime permission declarations...</div>
-                            <div class="line warn">⚠️ Tool 'write_file' requires 'write' permission.</div>
-                            <div class="line prompt">❓ Authorize permission 'write' for tool 'write_file'? (y/N) [Interactive]</div>
-                            <div class="line success">✅ Permission granted. Executing workflow...</div>
-                            <div class="line info">🤖 Step [translator] -> Agent: translator (local/gpt-4)</div>
-                            <div class="line output">📝 File written successfully to 'output/translated.md'</div>
-                            <div class="line success">🏁 Workflow completed successfully!</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<main>
 
-        <!-- Core Features Section -->
-        <section id="features">
-            <div class="container">
-                <h2 class="section-title">Why Use <span class="gradient-text">Capsule</span>?</h2>
-                <p class="section-subtitle">Capsule provides the operational tooling needed to run multi-agent workflows reliably in production environments.</p>
-                <div class="features-grid">
-                    <!-- Feature 1 -->
-                    <div class="feature-card glass-panel card-glow-indigo">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" class="icon-svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                        </div>
-                        <h3>Framework Agnostic</h3>
-                        <p>Write once in a declarative YAML manifest. Compile the configuration directly to production code for LangGraph, CrewAI, or OpenAI Agents.</p>
-                    </div>
-                    <!-- Feature 2 -->
-                    <div class="feature-card glass-panel card-glow-purple">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" class="icon-svg"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-                        </div>
-                        <h3>Runtime Permissions</h3>
-                        <p>Limit what actions AI agents can take. Enforce read, write, or custom security boundaries. Request manual verification via interactive terminal prompts.</p>
-                    </div>
-                    <!-- Feature 3 -->
-                    <div class="feature-card glass-panel card-glow-pink">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" class="icon-svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM9 17H5v-4h4v4zm0-5H5V8h4v4zm6 5h-4v-4h4v4zm0-5h-4V8h4v4zm6 5h-4v-4h4v4zm0-5h-4V8h4v4z"/></svg>
-                        </div>
-                        <h3>Signed Bundles</h3>
-                        <p>Package prompts, python tools, test parameters, and schema validations into a single signed <code>.capsule</code> archive verified by lockfile hash checkups.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- ===========================
+     HERO
+     =========================== -->
+<section id="hero" aria-labelledby="hero-title">
+    <div class="container">
+        <div class="hero-container">
 
-        <!-- Quickstart Guide Section -->
-        <section id="quickstart">
-            <div class="container">
-                <h2 class="section-title">Developer <span class="gradient-text">Quickstart</span></h2>
-                <p class="section-subtitle">Get a secure agent workflow running in less than 2 minutes.</p>
-                <div class="quickstart-layout glass-panel">
-                    <div class="qs-tabs">
-                        <button class="tab-btn active" onclick="switchTab(event, 'qs-install')">1. Install</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'qs-init')">2. Init</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'qs-validate')">3. Validate &amp; Scan</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'qs-run')">4. Execute Run</button>
-                        <button class="tab-btn" onclick="switchTab(event, 'qs-build')">5. Build &amp; Compile</button>
-                    </div>
-                    <div class="qs-content font-mono">
-                        <div id="qs-install" class="tab-pane active">
-                            <div class="code-header">
-                                <span class="lang-label">Bash</span>
-                                <button class="copy-btn" onclick="copyText('pip install capsule-agent')">Copy</button>
-                            </div>
-                            <pre><code><span class="comment"># Install Capsule using pip</span>
-pip install capsule-agent
-
-<span class="comment"># Or run directly via uv tool execution (recommended)</span>
-uv tool run capsule --help</code></pre>
-                        </div>
-                        <div id="qs-init" class="tab-pane">
-                            <div class="code-header">
-                                <span class="lang-label">Bash</span>
-                                <button class="copy-btn" onclick="copyText('capsule init my-agent-project')">Copy</button>
-                            </div>
-                            <pre><code><span class="comment"># Initialize a new Capsule project scaffolding</span>
-capsule init my-agent-project
-
-<span class="comment"># Let's inspect the generated directory structure</span>
-cd my-agent-project
-ls -R</code></pre>
-                        </div>
-                        <div id="qs-validate" class="tab-pane">
-                            <div class="code-header">
-                                <span class="lang-label">Bash</span>
-                                <button class="copy-btn" onclick="copyText('capsule validate . && capsule scan .')">Copy</button>
-                            </div>
-                            <pre><code><span class="comment"># Validate schema structure, schemas and edges</span>
-capsule validate .
-
-<span class="comment"># Scan local tool scripts for permission issues or security vulnerabilities</span>
-capsule scan .</code></pre>
-                        </div>
-                        <div id="qs-run" class="tab-pane">
-                            <div class="code-header">
-                                <span class="lang-label">Bash</span>
-                                <button class="copy-btn" onclick="copyText('capsule run . --input input.json --allow-permission write')">Copy</button>
-                            </div>
-                            <pre><code><span class="comment"># Run local agent workflow with input payload</span>
-capsule run . --input examples/input-request.json
-
-<span class="comment"># Automatically pre-approve write operations in non-interactive environments</span>
-capsule run . --input examples/input-request.json --allow-permission write</code></pre>
-                        </div>
-                        <div id="qs-build" class="tab-pane">
-                            <div class="code-header">
-                                <span class="lang-label">Bash</span>
-                                <button class="copy-btn" onclick="copyText('capsule build . && capsule compile . --target langgraph')">Copy</button>
-                            </div>
-                            <pre><code><span class="comment"># Compile declarative spec to pure LangGraph code</span>
-capsule compile . --target langgraph
-
-<span class="comment"># Package project into a single redistributable .capsule file</span>
-capsule build .</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Interactive Spec Explorer Section -->
-        <section id="spec-explorer">
-            <div class="container">
-                <h2 class="section-title">Interactive <span class="gradient-text">YAML Spec Explorer</span></h2>
-                <p class="section-subtitle">Click on any key in the <code>capsule.yaml</code> manifest below to understand its type, validation rules, and runtime impact.</p>
-                <div class="explorer-grid">
-                    <!-- Left: Code Panel -->
-                    <div class="code-container glass-panel">
-                        <div class="code-title font-mono">capsule.yaml</div>
-                        <pre class="yaml-code font-mono"><code><span class="yaml-key clickable active" data-spec="name">name</span>: <span class="yaml-val">translation-editor-agent</span>
-<span class="yaml-key clickable" data-spec="version">version</span>: <span class="yaml-val">0.1.0</span>
-<span class="yaml-key clickable" data-spec="description">description</span>: <span class="yaml-val">Translates and edits text files.</span>
-
-<span class="yaml-key clickable" data-spec="input_schema">input_schema</span>:
-  <span class="yaml-key">type</span>: <span class="yaml-val">object</span>
-  <span class="yaml-key">required</span>: [<span class="yaml-val">text</span>]
-
-<span class="yaml-key clickable" data-spec="models">models</span>:
-  <span class="yaml-key">default</span>:
-    <span class="yaml-key">provider</span>: <span class="yaml-val">local</span>
-    <span class="yaml-key">model</span>: <span class="yaml-val">gpt-4</span>
-
-<span class="yaml-key clickable" data-spec="agents">agents</span>:
-  <span class="yaml-key">translator</span>:
-    <span class="yaml-key">prompt</span>: <span class="yaml-val">agents/translator.md</span>
-    <span class="yaml-key">model</span>: <span class="yaml-val">default</span>
-    <span class="yaml-key">tools</span>: [<span class="yaml-val">write_file</span>]
-
-<span class="yaml-key clickable" data-spec="tools">tools</span>:
-  <span class="yaml-key">write_file</span>:
-    <span class="yaml-key">type</span>: <span class="yaml-val">python</span>
-    <span class="yaml-key">entrypoint</span>: <span class="yaml-val">tools/write_file.py:write</span>
-    <span class="yaml-key">permission</span>: <span class="yaml-val">write</span>
-
-<span class="yaml-key clickable" data-spec="workflow">workflow</span>:
-  <span class="yaml-key">start</span>: <span class="yaml-val">translator</span>
-  <span class="yaml-key">steps</span>:
-    - <span class="yaml-key">id</span>: <span class="yaml-val">translator</span>
-      <span class="yaml-key">type</span>: <span class="yaml-val">agent</span>
-      <span class="yaml-key">agent</span>: <span class="yaml-val">translator</span>
-      <span class="yaml-key">next</span>: <span class="yaml-val">editor</span>
-
-<span class="yaml-key clickable" data-spec="permissions">permissions</span>:
-  <span class="yaml-key">tools</span>:
-    <span class="yaml-key">write_file</span>: <span class="yaml-val">write</span>
-
-<span class="yaml-key clickable" data-spec="tests">tests</span>:
-  - <span class="yaml-val">tests/test_translation.yaml</span></code></pre>
-                    </div>
-
-                    <!-- Right: Info Panel -->
-                    <div class="info-container glass-panel" id="spec-info-panel">
-                        <div class="info-header">
-                            <span class="info-tag" id="spec-type">string</span>
-                            <span class="info-requirement" id="spec-req">Required</span>
-                        </div>
-                        <h3 id="spec-title">name</h3>
-                        <p class="info-desc" id="spec-desc">The unique identifier of the Capsule project. Used for compilation naming and bundle names.</p>
-                        
-                        <div class="info-section">
-                            <h4>Validation Rules</h4>
-                            <ul class="validation-list" id="spec-validations">
-                                <li>Must match alphanumeric characters and hyphens only.</li>
-                                <li>Should not contain spaces.</li>
-                            </ul>
-                        </div>
-
-                        <div class="info-section">
-                            <h4>Compiler / Runtime Impact</h4>
-                            <p class="impact-text" id="spec-impact">Determines the package name in compiled adapter projects, and the prefix for output bundles (e.g. <code>my-agent-0.1.0.capsule</code>).</p>
-                        </div>
-
-                        <div class="tip-box">
-                            <span class="tip-title">💡 Pro Tip</span>
-                            <span id="spec-tip">Keep names simple and descriptive to simplify CLI operations.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Command Reference Section -->
-        <section id="commands">
-            <div class="container">
-                <h2 class="section-title">CLI <span class="gradient-text">Command Reference</span></h2>
-                <p class="section-subtitle">Complete toolbelt for local development and workflow packaging.</p>
-                <div class="commands-table-wrapper glass-panel">
-                    <table class="commands-table">
-                        <thead>
-                            <tr>
-                                <th>Command</th>
-                                <th>Description</th>
-                                <th>Key Options</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="font-mono cmd-name">capsule init</td>
-                                <td>Initialize a blank Capsule directory structures.</td>
-                                <td><code>--name &lt;str&gt;</code>, <code>--overwrite</code></td>
-                            </tr>
-                            <tr>
-                                <td class="font-mono cmd-name">capsule validate</td>
-                                <td>Checks YAML schema conformances and routing cycles.</td>
-                                <td><code>--path &lt;dir&gt;</code></td>
-                            </tr>
-                            <tr>
-                                <td class="font-mono cmd-name">capsule scan</td>
-                                <td>Perform security code checks on python files.</td>
-                                <td><code>--path &lt;dir&gt;</code></td>
-                            </tr>
-                            <tr>
-                                <td class="font-mono cmd-name">capsule run</td>
-                                <td>Execute agent workflow locally with input payload.</td>
-                                <td><code>--input &lt;file&gt;</code>, <code>--allow-permission &lt;perm&gt;</code>, <code>--allow-all</code></td>
-                            </tr>
-                            <tr>
-                                <td class="font-mono cmd-name">capsule test</td>
-                                <td>Runs YAML workflow tests with mocking tools support.</td>
-                                <td><code>--path &lt;dir&gt;</code></td>
-                            </tr>
-                            <tr>
-                                <td class="font-mono cmd-name">capsule compile</td>
-                                <td>Compile manifest structure to specific SDK.</td>
-                                <td><code>--target &lt;langgraph|crewai|openai_agents&gt;</code></td>
-                            </tr>
-                            <tr>
-                                <td class="font-mono cmd-name">capsule build</td>
-                                <td>Build validated secure <code>.capsule</code> bundle.</td>
-                                <td><code>--output &lt;dir&gt;</code></td>
-                            </tr>
-                            <tr>
-                                <td class="font-mono cmd-name">capsule verify-bundle</td>
-                                <td>Verify bundle tamper status against lock file hashes.</td>
-                                <td><code>--bundle &lt;file&gt;</code></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Star History & Footer -->
-    <footer id="main-footer">
-        <div class="container footer-container">
-            <div class="footer-brand">
-                <div class="logo-area">
-                    <img src="../logo.png" alt="Capsule Logo" class="footer-logo" onerror="this.style.display='none';">
-                    <span class="logo-text">Capsule</span>
-                </div>
-                <p>The operational framework for packaging, sandboxing, and orchestrating reproducible AI agents.</p>
-            </div>
-            
-            <div class="footer-links">
-                <h4>GitHub &amp; Community</h4>
-                <div class="star-badge-placeholder">
-                    <!-- Styled premium SVG github star chart placeholder -->
-                    <a href="https://github.com/vindepemarte/Capsule" target="_blank" rel="noopener noreferrer" class="star-history-btn">
-                        <svg viewBox="0 0 24 24" class="icon-svg star-icon"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z"/></svg>
-                        <span>Star on GitHub</span>
+            <!-- Left: Copy -->
+            <div class="hero-content">
+                <div class="badge-pill">Open-Source · Python 3.12</div>
+                <h1 id="hero-title" class="hero-title">
+                    Agents. Packaged.<br>
+                    <span class="gradient-text">Secured. Deployed.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Capsule is the packaging and security runtime for AI agents. Define your agent once as a <code style="font-family:monospace; background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:15px;">capsule.yaml</code>, then scan, run, and test it anywhere.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#quickstart" class="btn btn-primary btn-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        Get Started
+                    </a>
+                    <a href="https://github.com/vindepemarte/Capsule" target="_blank" rel="noopener" class="btn btn-secondary btn-icon">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+                        Star on GitHub
                     </a>
                 </div>
             </div>
-        </div>
-        <div class="container footer-bottom">
-            <p>&copy; 2026 Capsule Project. Released under the MIT License.</p>
-        </div>
-    </footer>
 
-    <!-- JS Logic -->
-    <script src="main.js"></script>
+            <!-- Right: Animated Compiler Simulator -->
+            <div class="hero-visual">
+                <div class="glass-panel compiler-simulator">
+                    <div class="simulator-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="simulator-title">capsule.yaml → runtime</span>
+                    </div>
+                    <div class="simulator-body">
+
+                        <!-- Source node -->
+                        <div class="sim-node source-node">
+                            <div class="node-icon">YAML</div>
+                            <span class="node-label">capsule.yaml</span>
+                        </div>
+
+                        <!-- Connector -->
+                        <div class="sim-connector">
+                            <div class="pulse-line"><span class="pulse"></span></div>
+                        </div>
+
+                        <!-- Engine -->
+                        <div class="sim-engine">
+                            <div class="engine-core">
+                                <svg class="spinner-svg" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="36" cy="36" r="32" stroke="url(#spinner-grad)" stroke-width="2" stroke-dasharray="10 8" stroke-linecap="round"/>
+                                    <defs>
+                                        <linearGradient id="spinner-grad" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#6366f1"/>
+                                            <stop offset="100%" stop-color="#ec4899"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="engine-logo-box">
+                                    <img src="../logo.png" alt="Engine" class="engine-logo" onerror="this.parentElement.textContent='⚙️'">
+                                </div>
+                            </div>
+                            <span class="node-label">runtime</span>
+                        </div>
+
+                        <!-- Split connectors -->
+                        <div class="sim-split-connectors">
+                            <div class="split-line"><span class="pulse"></span></div>
+                            <div class="split-line"><span class="pulse"></span></div>
+                            <div class="split-line"><span class="pulse"></span></div>
+                        </div>
+
+                        <!-- Target nodes -->
+                        <div class="target-nodes">
+                            <div class="sim-node target-node active" data-target="scan">
+                                <div class="node-icon">SCAN</div>
+                            </div>
+                            <div class="sim-node target-node" data-target="run">
+                                <div class="node-icon">RUN</div>
+                            </div>
+                            <div class="sim-node target-node" data-target="test">
+                                <div class="node-icon">TEST</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Code Preview -->
+                <div class="glass-panel code-preview-box">
+                    <div class="preview-header">
+                        <span class="preview-lang">capsule scan output</span>
+                        <div style="display:flex;gap:6px;">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                    </div>
+                    <pre id="sim-code-preview"><code>$ capsule scan
+<span style="color:#10b981">✓</span> Manifest loaded: my_agent/capsule.yaml
+<span style="color:#10b981">✓</span> Schema valid
+<span style="color:#10b981">✓</span> Models declared: gemini-1.5-pro
+<span style="color:#10b981">✓</span> Tools scanned: 3 found, 0 unsafe
+<span style="color:#fbbf24">⚠</span> No input_schema defined — optional
+<span style="color:#10b981">✓</span> PASSED (3 warnings, 0 errors)</code></pre>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===========================
+     CONCEPT STEPS
+     =========================== -->
+<section id="concept-steps" aria-labelledby="steps-title">
+    <div class="container">
+        <div class="steps-grid">
+
+            <div class="step-card glass-panel card-glow-indigo reveal">
+                <div class="step-num">01</div>
+                <h3>Define</h3>
+                <p>Write a single <code style="font-family:monospace;background:rgba(255,255,255,0.06);padding:2px 5px;border-radius:4px;font-size:12px;">capsule.yaml</code> that describes your agent: models, tools, prompts, and I/O schema. One file. Infinite clarity.</p>
+            </div>
+
+            <div class="step-card glass-panel card-glow-purple reveal reveal-delay-1">
+                <div class="step-num">02</div>
+                <h3>Scan</h3>
+                <p>Run <code style="font-family:monospace;background:rgba(255,255,255,0.06);padding:2px 5px;border-radius:4px;font-size:12px;">capsule scan</code> to validate your manifest, detect insecure tools, and verify model declarations before anything executes.</p>
+            </div>
+
+            <div class="step-card glass-panel card-glow-pink reveal reveal-delay-2">
+                <div class="step-num">03</div>
+                <h3>Deploy</h3>
+                <p>Run locally, plug into CI/CD, or ship to production. Capsule gives every agent a portable, auditable identity that travels with it.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===========================
+     FEATURES
+     =========================== -->
+<section id="features" aria-labelledby="features-title">
+    <div class="container">
+        <h2 id="features-title" class="section-title reveal">Everything an agent needs.</h2>
+        <p class="section-subtitle reveal reveal-delay-1">Not a framework. Not an orchestrator. Capsule is the spec, validator, and runtime wrapper that every agent stack is missing.</p>
+
+        <div class="features-grid">
+
+            <div class="feature-card glass-panel card-glow-indigo reveal">
+                <div class="feature-icon">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <h3>Declarative Schema</h3>
+                <p>The <code>capsule.yaml</code> is your agent's contract. Models, tools, prompts, secrets, and I/O schemas live as code — version-controlled and reviewable by anyone.</p>
+            </div>
+
+            <div class="feature-card glass-panel card-glow-purple reveal reveal-delay-1">
+                <div class="feature-icon">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <h3>Static Security Scan</h3>
+                <p>Run <code>capsule scan</code> before any agent executes. It validates the manifest, flags unsafe tool patterns, and enforces declared model allowlists.</p>
+            </div>
+
+            <div class="feature-card glass-panel card-glow-pink reveal reveal-delay-2">
+                <div class="feature-icon">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <h3>Workflow Testing</h3>
+                <p>Write <code>.yaml</code> test cases with mocked tool outputs. Run them with <code>capsule test</code> to replay flows deterministically — no LLM calls needed.</p>
+            </div>
+
+            <div class="feature-card glass-panel card-glow-indigo reveal">
+                <div class="feature-icon">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.071 4.929l-2.829 2.829M4.929 19.071l2.828-2.828M19.071 19.071l-2.829-2.828M4.929 4.929l2.828 2.829" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </div>
+                <h3>MCP Integrations</h3>
+                <p>Declare MCP server connections directly in your capsule. Capsule wires up transports, resolves tool namespaces, and validates calls at runtime.</p>
+            </div>
+
+            <div class="feature-card glass-panel card-glow-purple reveal reveal-delay-1">
+                <div class="feature-icon">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <h3>Multi-Agent Support</h3>
+                <p>Compose agents into pipelines. A capsule can declare sub-agents as dependencies, and Capsule routes messages between them with full type-safe I/O.</p>
+            </div>
+
+            <div class="feature-card glass-panel card-glow-pink reveal reveal-delay-2">
+                <div class="feature-icon">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <h3>Framework Agnostic</h3>
+                <p>Capsule wraps any agent framework. LangChain, ADK, CrewAI, or raw function calls — Capsule doesn't replace your stack, it packages it.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===========================
+     YAML SPEC EXPLORER
+     =========================== -->
+<section id="spec-explorer" aria-labelledby="spec-title">
+    <div class="container">
+        <h2 id="spec-title" class="section-title reveal">The <span class="gradient-text">capsule.yaml</span> Spec</h2>
+        <p class="section-subtitle reveal reveal-delay-1">Click any key to understand exactly what it does, what it validates, and why it matters.</p>
+
+        <div class="explorer-grid">
+            <!-- YAML Code -->
+            <div class="code-container reveal">
+                <div class="code-title font-mono">my-agent/capsule.yaml</div>
+                <pre class="yaml-code font-mono"><code><span class="yaml-key clickable active" data-key="name">name</span>: <span class="yaml-val">refund-support-agent</span>
+<span class="yaml-key clickable" data-key="version">version</span>: <span class="yaml-val">"1.0.0"</span>
+<span class="yaml-key clickable" data-key="description">description</span>: <span class="yaml-val">&gt;
+  Processes customer refund requests
+  and determines eligibility.</span>
+
+<span class="yaml-key clickable" data-key="models">models</span>:
+  - <span class="yaml-val">gemini-2.0-flash</span>
+  - <span class="yaml-val">gemini-1.5-pro</span>
+
+<span class="yaml-key clickable" data-key="agents">agents</span>:
+  - <span class="yaml-key">name</span>: <span class="yaml-val">main</span>
+    <span class="yaml-key">prompt</span>: <span class="yaml-val">prompts/main.md</span>
+    <span class="yaml-key">model</span>: <span class="yaml-val">gemini-2.0-flash</span>
+    <span class="yaml-key">tools</span>:
+      - <span class="yaml-val">check_order_status</span>
+      - <span class="yaml-val">process_refund</span>
+
+<span class="yaml-key clickable" data-key="tools">tools</span>:
+  - <span class="yaml-key">name</span>: <span class="yaml-val">check_order_status</span>
+    <span class="yaml-key">source</span>: <span class="yaml-val">tools/orders.py</span>
+    <span class="yaml-key">function</span>: <span class="yaml-val">check_order_status</span>
+
+<span class="yaml-key clickable" data-key="input_schema">input_schema</span>:
+  <span class="yaml-key">type</span>: <span class="yaml-val">object</span>
+  <span class="yaml-key">properties</span>:
+    <span class="yaml-key">order_id</span>:
+      <span class="yaml-key">type</span>: <span class="yaml-val">string</span>
+
+<span class="yaml-key clickable" data-key="secrets">secrets</span>:
+  - <span class="yaml-val">ORDERS_API_KEY</span>
+</code></pre>
+            </div>
+
+            <!-- Info Panel -->
+            <div class="glass-panel info-container reveal reveal-delay-1">
+                <div class="info-header">
+                    <span class="info-tag" id="info-tag">Field</span>
+                    <span class="info-requirement" id="info-req">Required</span>
+                </div>
+                <h3 id="info-key-title">name</h3>
+                <p class="info-desc" id="info-desc">A unique slug identifier for this agent capsule. Used in CLI output, logs, and when referencing this agent as a sub-agent from another capsule.</p>
+
+                <div class="info-section">
+                    <h4>Validation</h4>
+                    <ul class="validation-list" id="info-validation">
+                        <li>Must be a non-empty string</li>
+                        <li>No spaces — use hyphens or underscores</li>
+                        <li>Must be unique within your project</li>
+                    </ul>
+                </div>
+
+                <div class="info-section">
+                    <h4>Impact</h4>
+                    <p class="impact-text" id="info-impact">Shown in all CLI output, scan reports, and used as the registry key when agents reference sub-agents. A bad name causes routing failures in pipelines.</p>
+                </div>
+
+                <div class="tip-box">
+                    <span class="tip-title">💡 Tip</span>
+                    <span id="spec-tip">Match the name to your directory name for maximum clarity. E.g., folder <code style="font-family:monospace;font-size:12px;">refund-agent/</code> → name: <code style="font-family:monospace;font-size:12px;">refund-agent</code>.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===========================
+     SECURITY / TERMINAL
+     =========================== -->
+<section id="security-runtime" aria-labelledby="security-title">
+    <div class="container">
+        <h2 id="security-title" class="section-title reveal">Scan before you run.</h2>
+        <p class="section-subtitle reveal reveal-delay-1">
+            <code style="font-family:monospace;background:rgba(255,255,255,0.06);padding:2px 8px;border-radius:4px;">capsule scan</code> validates every declaration statically. Catch misconfigurations before they reach production.
+        </p>
+
+        <div class="terminal-mockup glass-panel reveal">
+            <div class="terminal-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="terminal-title">capsule scan — security report</span>
+            </div>
+            <div id="terminal-body" class="terminal-body font-mono">
+                <!-- Lines injected by JS -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===========================
+     QUICKSTART TABS
+     =========================== -->
+<section id="quickstart" aria-labelledby="quickstart-title">
+    <div class="container">
+        <h2 id="quickstart-title" class="section-title reveal">Up in 60 seconds.</h2>
+        <p class="section-subtitle reveal reveal-delay-1">From zero to a running, scanned agent in three steps.</p>
+
+        <div class="quickstart-layout reveal">
+            <div class="qs-tabs" role="tablist" aria-label="Quickstart steps">
+                <button id="tab-install" class="tab-btn active" role="tab" aria-selected="true" aria-controls="pane-install" onclick="switchTab(event,'install')">1. Install</button>
+                <button id="tab-create" class="tab-btn" role="tab" aria-selected="false" aria-controls="pane-create" onclick="switchTab(event,'create')">2. Create</button>
+                <button id="tab-run" class="tab-btn" role="tab" aria-selected="false" aria-controls="pane-run" onclick="switchTab(event,'run')">3. Run</button>
+            </div>
+
+            <div class="qs-content">
+
+                <div id="pane-install" class="tab-pane active" role="tabpanel" aria-labelledby="tab-install">
+                    <div class="code-header">
+                        <span class="lang-label">Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy install command">Copy</button>
+                    </div>
+                    <pre><code><span style="color:#a5b4fc">$</span> pip install capsule-ai
+
+<span class="comment"># Or with uv (recommended)</span>
+<span style="color:#a5b4fc">$</span> uv add capsule-ai
+
+<span class="comment"># Verify installation</span>
+<span style="color:#a5b4fc">$</span> capsule --version
+<span style="color:#10b981">capsule 0.1.0</span></code></pre>
+                </div>
+
+                <div id="pane-create" class="tab-pane" role="tabpanel" aria-labelledby="tab-create">
+                    <div class="code-header">
+                        <span class="lang-label">capsule.yaml</span>
+                        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy capsule yaml">Copy</button>
+                    </div>
+                    <pre><code><span class="comment"># my-agent/capsule.yaml</span>
+
+<span style="color:#f87171">name</span>: <span style="color:#34d399">my-first-agent</span>
+<span style="color:#f87171">version</span>: <span style="color:#34d399">"1.0.0"</span>
+<span style="color:#f87171">description</span>: <span style="color:#34d399">My first Capsule agent</span>
+
+<span style="color:#f87171">models</span>:
+  - <span style="color:#34d399">gemini-2.0-flash</span>
+
+<span style="color:#f87171">agents</span>:
+  - <span style="color:#f87171">name</span>: <span style="color:#34d399">main</span>
+    <span style="color:#f87171">prompt</span>: <span style="color:#34d399">prompts/system.md</span>
+    <span style="color:#f87171">model</span>: <span style="color:#34d399">gemini-2.0-flash</span>
+    <span style="color:#f87171">tools</span>:
+      - <span style="color:#34d399">my_tool</span></code></pre>
+                </div>
+
+                <div id="pane-run" class="tab-pane" role="tabpanel" aria-labelledby="tab-run">
+                    <div class="code-header">
+                        <span class="lang-label">Shell</span>
+                        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy run commands">Copy</button>
+                    </div>
+                    <pre><code><span class="comment"># Validate your capsule</span>
+<span style="color:#a5b4fc">$</span> capsule scan
+<span style="color:#10b981">✓ PASSED — 0 errors, 0 warnings</span>
+
+<span class="comment"># Run your agent</span>
+<span style="color:#a5b4fc">$</span> capsule run --input '{"query": "hello"}'
+<span style="color:#60a5fa">Agent response: Hello! How can I help?</span>
+
+<span class="comment"># Run tests</span>
+<span style="color:#a5b4fc">$</span> capsule test
+<span style="color:#10b981">✓ 3/3 tests passed</span></code></pre>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<!-- ===========================
+     FOOTER
+     =========================== -->
+<footer id="main-footer">
+    <div class="container">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-area" style="margin-bottom:0">
+                    <img src="../logo.png" alt="Capsule logo" class="footer-logo" onerror="this.style.display='none'">
+                    <span class="logo-text">Capsule</span>
+                </div>
+                <p>The open-source packaging and security runtime for AI agents. Define once, scan, run, and ship anywhere.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Project</h4>
+                <a href="https://github.com/vindepemarte/Capsule" target="_blank" rel="noopener" class="star-history-btn">
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Star on GitHub
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Capsule. Open-source under MIT License.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="main.js"></script>
 </body>
 </html>

@@ -33,7 +33,7 @@ This leads to several critical issues:
 * **Runtime Permission Sandboxing:** Intercept tool calls dynamically at runtime. Enforce read, write, or custom scopes. Interactively request approval in terminals, or use pre-approval flags (`--allow-permission` / `--allow-all`) in script pipelines.
 * **Declarative Workflow Tests:** Run deterministic, YAML-defined test cases against your workflow with mocked tool responses, checking output values and execution paths.
 * **Static Security Scanning:** Instantly audit files, permissions, and tools using `capsule scan` to identify risky imports, shell executions, and permission violations.
-* **Lockfiles & OCI-Ready Bundles:** Build hermetic `.capsule` zip archives paired with a `capsule.lock` that pins asset hashes to guarantee reproducibility when sharing workflows.
+* **Lockfiles & Portable Bundles:** Build hermetic `.capsule` zip archives paired with a `capsule.lock` that pins asset hashes to guarantee reproducibility when sharing workflows.
 * **Interactive Documentation & Spec Explorer:** Explore all manifest configurations and guides via a beautiful, local documentation page (`docs/site/index.html`) featuring a reactive Spec Explorer.
 
 ---
@@ -205,17 +205,38 @@ We welcome contributions of all kinds! If you'd like to implement new compiler t
 
 ---
 
-## 🔮 Future Roadmap & Vision
+## 🔮 Roadmap & Vision
 
 Capsule's ultimate goal is to become the **universal packaging, distribution, and runtime verification standard for AI agent workflows**. 
 
-To give creators, developers, and enterprises a unified target, we are actively working towards the following milestones:
+Current progress:
 
-* **More Compiler Adapters:** Build compilation engines for **AutoGen**, **Haystack**, **Semantic Kernel**, and native **TypeScript** runtimes so agent workflows can migrate seamlessly between ecosystems.
-* **Unified Agent Registry:** A decentralized registry platform (similar to Docker Hub or npm) where teams can publish, version, and download pre-tested, verified `.capsule` agent bundles.
-* **Hermetic Security Policies & Sandboxing:** Execute local Python tools inside gRPC sandboxes or WASM containers with strict execution policies (extending the active runtime permissions engine).
-* **Visual Graph Inspector & Debugger:** A visual GUI tool to inspect the neutral execution graph, trace active tokens, analyze agent handoffs, and audit decision branches.
-* **MCP Integration Engine:** Move from declaration-only MCP tools to real runtime orchestration with automatic MCP server startup, security authorization prompts, and session pooling.
+- [x] Core `capsule.yaml` package format.
+- [x] CLI scaffold, validate, inspect, graph, run, test, compile, build, scan, history, and bundle verification commands.
+- [x] Framework-neutral Capsule Graph.
+- [x] Local development runtime with structured traces.
+- [x] Declarative YAML workflow tests with mocked tool responses.
+- [x] Runtime permission checks with `--allow-permission`, `--allow-all`, and interactive approval.
+- [x] Static security scanning for risky permissions, imports, environment access, and MCP declarations.
+- [x] `capsule.lock` generation and `.capsule` zip bundle creation.
+- [x] Bundle inspection and hash verification.
+- [x] LangGraph compiler adapter with runnable generated output.
+- [x] CrewAI Flow compiler adapter.
+- [x] OpenAI Agents SDK compiler adapter.
+- [x] Declaration-only MCP tool support with mocked local tests.
+- [x] Refund support, MCP research, and translation editor example projects.
+- [x] Interactive documentation site and `capsule.yaml` Spec Explorer.
+
+Next milestones:
+
+- [ ] Signed bundles.
+- [ ] Public or Git-backed Capsule registry prototype.
+- [ ] Real MCP runtime orchestration with server startup, authorization prompts, and session pooling.
+- [ ] Hermetic Python tool sandboxing through gRPC, containers, or WASM.
+- [ ] Visual graph inspector and debugger.
+- [ ] TypeScript runtime target.
+- [ ] Additional adapters for AutoGen, Haystack, and Semantic Kernel.
+- [ ] Docker or OCI image generation for compiled runtimes.
 
 ---
 
