@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/logo.png" alt="Capsule Logo" width="400"/>
+</p>
+
 # Capsule 🚀
 
 **Docker-like packaging, compilation, and testing layer for AI agent workflows.**
