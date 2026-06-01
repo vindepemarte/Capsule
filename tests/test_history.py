@@ -21,7 +21,7 @@ def test_record_and_read_run_history(tmp_path):
     context = load_project(project)
     graph = build_graph(context)
     input_data = {"message": "I want a refund for my last order."}
-    result = run_graph(graph, context.root, input_data)
+    result = run_graph(graph, context.root, input_data, allow_all=True)
 
     record = record_run(context.root, graph, input_data, result)
     runs = list_runs(context.root)
@@ -37,7 +37,7 @@ def test_run_command_records_history_and_show_run(tmp_path):
     project = _copy_example(tmp_path)
     input_file = project / "examples" / "refund-request.json"
 
-    result = runner.invoke(app, ["run", str(project), "--input", str(input_file)])
+    result = runner.invoke(app, ["run", str(project), "--input", str(input_file), "--allow-all"])
 
     assert result.exit_code == 0, result.output
     run_id = _extract_run_id(result.output)
@@ -57,7 +57,9 @@ def test_run_command_can_skip_history(tmp_path):
     project = _copy_example(tmp_path)
     input_file = project / "examples" / "refund-request.json"
 
-    result = runner.invoke(app, ["run", str(project), "--input", str(input_file), "--no-history"])
+    result = runner.invoke(
+        app, ["run", str(project), "--input", str(input_file), "--no-history", "--allow-all"]
+    )
 
     assert result.exit_code == 0, result.output
     assert "Recorded run" not in result.output

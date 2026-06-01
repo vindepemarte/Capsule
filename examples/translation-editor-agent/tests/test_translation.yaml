@@ -1,0 +1,13 @@
+name: translation request translates and writes output
+input:
+  message: "Hello world, packaging AI agents is awesome."
+mock_tools:
+  write_file:
+    result:
+      filepath: "/absolute/path/to/translation.txt"
+expect:
+  path:
+    - translator
+    - editor
+  output_contains:
+    filepath: "translation.txt"

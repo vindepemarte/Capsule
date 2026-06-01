@@ -6,7 +6,7 @@ from typing import Any
 from capsule.graph.models import CapsuleGraph, GraphNode
 from capsule.runtime.tool_loader import call_tool, load_python_tool
 from capsule.runtime.trace import RunResult, RunTrace, ToolCall, TraceStep
-from capsule.security.permissions import require_tool_permission
+from capsule.security.permissions import authorize_tool_permission, require_tool_permission
 from capsule.spec.payload_schema import PayloadSchemaError, validate_payload
 
 
@@ -19,6 +19,8 @@ def run_graph(
     project_root: Path,
     input_data: dict[str, Any],
     mock_tools: dict[str, Any] | None = None,
+    allowed_permissions: list[str] | None = None,
+    allow_all: bool = False,
 ) -> RunResult:
     _validate_runtime_payload(graph.input_schema, input_data, "input")
     state = dict(input_data)
@@ -37,7 +39,16 @@ def run_graph(
         step_trace = TraceStep(node=node.id, type=node.type, agent=node.agent)
 
         if node.type == "agent":
-            _run_agent_node(graph, project_root, node, state, mocks, step_trace)
+            _run_agent_node(
+                graph,
+                project_root,
+                node,
+                state,
+                mocks,
+                step_trace,
+                allowed_permissions,
+                allow_all,
+            )
         elif node.type == "human_gate":
             state.setdefault("human_gate", "approved")
             state.setdefault("route", "approved")
@@ -67,6 +78,8 @@ def _run_agent_node(
     state: dict[str, Any],
     mock_tools: dict[str, Any],
     trace: TraceStep,
+    allowed_permissions: list[str] | None = None,
+    allow_all: bool = False,
 ) -> None:
     if not node.agent:
         raise RuntimeExecutionError(f"Agent node '{node.id}' has no agent")
@@ -77,6 +90,7 @@ def _run_agent_node(
 
     for tool_name in agent.tools:
         permission = require_tool_permission(graph, tool_name)
+        authorize_tool_permission(graph, tool_name, allowed_permissions or [], allow_all)
         if tool_name in mock_tools:
             result = _normalize_mock_result(mock_tools[tool_name])
             mocked = True

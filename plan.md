@@ -596,16 +596,16 @@ P0 is required for the MVP to be considered complete.
 
 ### P1 Requirements
 
-P1 is next after MVP.
+P1 is next after MVP. All P1 requirements have been successfully implemented.
 
-- [ ] CrewAI adapter.
+- [x] CrewAI adapter. (Completed)
 - [x] OpenAI Agents SDK adapter. (Completed)
 - [x] Better run traces. (Completed)
 - [x] SQLite-backed run history. (Completed)
 - [x] MCP tool declaration support. (Completed)
-- [ ] More complete permission model.
-- [ ] Better examples.
-- [ ] Documentation site.
+- [x] More complete permission model. (Completed)
+- [x] Better examples. (Completed)
+- [x] Documentation site. (Completed)
 
 ### P2 Requirements
 
@@ -704,9 +704,12 @@ Deliverables:
 ### Phase 8: Post-MVP Expansion (In Progress)
 
 Deliverables:
-- [ ] CrewAI adapter.
+- [x] CrewAI adapter. (Completed)
 - [x] OpenAI Agents SDK adapter. (Completed)
 - [x] MCP declarations stubs & stubs validations. (Completed)
+- [x] Interactive permissions engine at runtime. (Completed)
+- [x] Multi-agent translation examples. (Completed)
+- [x] Interactive documentation website with spec explorer. (Completed)
 - [ ] Signed bundles.
 - [ ] Registry prototype.
 

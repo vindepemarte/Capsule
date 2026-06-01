@@ -19,6 +19,7 @@ def test_runtime_executes_example_input():
         graph,
         context.root,
         {"message": "I want a refund for my last order."},
+        allow_all=True,
     )
 
     assert result.trace.path == ["triage", "responder"]
@@ -46,7 +47,9 @@ def test_runtime_rejects_output_that_does_not_match_schema():
     )
 
     with pytest.raises(RuntimeExecutionError, match="output does not match declared schema"):
-        run_graph(graph, context.root, {"message": "I want a refund for my last order."})
+        run_graph(
+            graph, context.root, {"message": "I want a refund for my last order."}, allow_all=True
+        )
 
 
 def test_capsule_test_harness_runs_yaml_tests():

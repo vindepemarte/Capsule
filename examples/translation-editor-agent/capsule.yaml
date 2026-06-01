@@ -1,0 +1,46 @@
+name: translation-editor-agent
+version: 0.1.0
+description: Translates input text into Spanish and edits/saves the output to a local file.
+
+models:
+  default:
+    provider: openai
+    model: gpt-4o-mini
+
+agents:
+  translator:
+    prompt: agents/translator.md
+    model: default
+    tools: []
+
+  editor:
+    prompt: agents/editor.md
+    model: default
+    tools:
+      - write_file
+
+tools:
+  write_file:
+    type: python
+    entrypoint: tools/write_file.py:write_text_file
+    permission: write
+
+workflow:
+  start: translator
+  steps:
+    - id: translator
+      type: agent
+      agent: translator
+      next: editor
+
+    - id: editor
+      type: agent
+      agent: editor
+      output: filepath
+
+permissions:
+  tools:
+    write_file: write
+
+tests:
+  - tests/test_translation.yaml

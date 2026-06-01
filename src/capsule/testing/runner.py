@@ -31,7 +31,9 @@ def _run_test_case(
 ) -> TestCaseResult:
     failures: list[str] = []
     try:
-        result = run_graph(graph, project_root, test_case.input, test_case.mock_tools)
+        result = run_graph(
+            graph, project_root, test_case.input, test_case.mock_tools, allow_all=True
+        )
     except RuntimeExecutionError as exc:
         return TestCaseResult(name=test_case.name, passed=False, failures=[str(exc)])
 

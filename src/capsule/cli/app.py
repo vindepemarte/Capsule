@@ -111,13 +111,25 @@ def run(
     path: Path = typer.Argument(Path("."), help="Capsule project folder."),
     input_file: Path = typer.Option(..., "--input", "-i", help="JSON input file."),
     history: bool = typer.Option(True, "--history/--no-history", help="Persist this run locally."),
+    allow_permission: Optional[list[str]] = typer.Option(
+        None, "--allow-permission", "-p", help="Permissions to authorize at runtime."
+    ),
+    allow_all: bool = typer.Option(
+        False, "--allow-all", help="Authorize all permissions at runtime."
+    ),
 ) -> None:
     """Run a Capsule workflow locally."""
     context, graph = _load_valid_graph(path)
     input_data = json.loads(input_file.read_text(encoding="utf-8"))
     try:
-        result = run_graph(graph, context.root, input_data)
-    except RuntimeExecutionError as exc:
+        result = run_graph(
+            graph,
+            context.root,
+            input_data,
+            allowed_permissions=allow_permission,
+            allow_all=allow_all,
+        )
+    except (RuntimeExecutionError, PermissionError) as exc:
         console.print(f"[red]{exc}[/red]")
         raise typer.Exit(1) from exc
     if history:

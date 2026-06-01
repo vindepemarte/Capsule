@@ -17,6 +17,10 @@
       "purpose": "Human-readable implementation notes, MVP usage notes, and generated schema artifacts.",
       "status": "active"
     },
+    "docs/site": {
+      "purpose": "Premium interactive documentation site assets, including HTML layouts, custom styling sheets, and JS explorers.",
+      "status": "active"
+    },
     "examples": {
       "purpose": "Checked-in Capsule workflow examples, including MVP Python tools and P1 MCP declarations.",
       "status": "active"
@@ -55,6 +59,26 @@
     },
     "examples/refund-support-agent/tools": {
       "purpose": "Python tools used by the refund support example workflow.",
+      "status": "active"
+    },
+    "examples/translation-editor-agent": {
+      "purpose": "P1 example project demonstrating runtime permission checks, a custom python translation tool, and multi-agent workflow testing.",
+      "status": "active"
+    },
+    "examples/translation-editor-agent/agents": {
+      "purpose": "Prompt files for the translation editor workflow agents.",
+      "status": "active"
+    },
+    "examples/translation-editor-agent/examples": {
+      "purpose": "Input JSON examples for the translation editor workflow.",
+      "status": "active"
+    },
+    "examples/translation-editor-agent/tests": {
+      "purpose": "YAML workflow tests with mock tools configurations for the translation editor workflow.",
+      "status": "active"
+    },
+    "examples/translation-editor-agent/tools": {
+      "purpose": "Python tools (including file writing) for the translation editor workflow.",
       "status": "active"
     },
     "src": {
@@ -169,6 +193,24 @@
       "manualEdit": true,
       "generated": false
     },
+    "docs/site/index.html": {
+      "purpose": "Interactive HTML page presenting the Capsule documentation and Spec Explorer UI.",
+      "type": "documentation",
+      "manualEdit": true,
+      "generated": false
+    },
+    "docs/site/main.js": {
+      "purpose": "Interactive JS controller for tab switches, copy utility triggers, and data loading for the YAML Spec Explorer.",
+      "type": "documentation",
+      "manualEdit": true,
+      "generated": false
+    },
+    "docs/site/style.css": {
+      "purpose": "Premium glassmorphic styling, custom scrollbars, typography, and responsive sheets for the documentation UI.",
+      "type": "documentation",
+      "manualEdit": true,
+      "generated": false
+    },
     "examples/refund-support-agent/agents/responder.md": {
       "purpose": "Responder prompt for the refund support example.",
       "type": "example-asset",
@@ -232,6 +274,42 @@
     "examples/mcp-research-agent/tests/research_topic.yaml": {
       "purpose": "Capsule workflow test case that mocks an MCP tool result.",
       "type": "example-test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/translation-editor-agent/agents/editor.md": {
+      "purpose": "Prompt instructions file for the editor agent step.",
+      "type": "example-asset",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/translation-editor-agent/agents/translator.md": {
+      "purpose": "Prompt instructions file for the translator agent step.",
+      "type": "example-asset",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/translation-editor-agent/capsule.yaml": {
+      "purpose": "Manifest file configuration for the translation editor agent workflow example.",
+      "type": "example-manifest",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/translation-editor-agent/examples/text-to-translate.json": {
+      "purpose": "Input JSON payload sample containing target text to translate.",
+      "type": "example-input",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/translation-editor-agent/tests/test_translation.yaml": {
+      "purpose": "Capsule workflow testing rules and assertion mocks for the translation editor agent.",
+      "type": "example-test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "examples/translation-editor-agent/tools/write_file.py": {
+      "purpose": "Python tool entrypoint writing translated buffers to target local file paths.",
+      "type": "example-tool",
       "manualEdit": true,
       "generated": false
     },
@@ -543,6 +621,12 @@
     },
     "tests/test_compile_crewai.py": {
       "purpose": "Tests CrewAI Flow compiler output and generated agent structure.",
+      "type": "test",
+      "manualEdit": true,
+      "generated": false
+    },
+    "tests/test_runtime_permissions.py": {
+      "purpose": "Verify runtime execution security gates, interactive prompt overrides, CLI flags, and exception handling.",
       "type": "test",
       "manualEdit": true,
       "generated": false

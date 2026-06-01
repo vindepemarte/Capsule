@@ -46,7 +46,12 @@ def test_mcp_tool_requires_mock_for_local_runtime():
     graph = build_graph(context)
 
     with pytest.raises(RuntimeExecutionError, match="requires a mocked tool result"):
-        run_graph(graph, context.root, {"topic": "portable agent workflow packaging"})
+        run_graph(
+            graph,
+            context.root,
+            {"topic": "portable agent workflow packaging"},
+            allow_all=True,
+        )
 
 
 def test_mcp_declaration_is_security_visible():
