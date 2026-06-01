@@ -192,6 +192,28 @@ We welcome contributions of all kinds! If you'd like to implement new compiler t
 
 ---
 
+## 🔮 Future Roadmap & Vision
+
+Capsule's ultimate goal is to become the **universal packaging, distribution, and runtime verification standard for AI agent workflows**. 
+
+To give creators, developers, and enterprises a unified target, we are actively working towards the following milestones:
+
+* **More Compiler Adapters:** Build compilation engines for **CrewAI**, **Haystack**, and native **TypeScript** runtimes so agent workflows can migrate seamlessly between ecosystems.
+* **Unified Agent Registry:** A decentralized registry platform (similar to Docker Hub or npm) where teams can publish, version, and download pre-tested, verified `.capsule` agent bundles.
+* **Hermetic Security Policies & Sandboxing:** Execute local Python tools inside secure, isolated sandboxes with strict runtime limits, and implement signed bundles to guarantee authenticity.
+* **Visual Graph Inspector & Debugger:** A visual GUI tool to inspect the neutral execution graph, trace active tokens, analyze agent handoffs, and audit decision branches.
+* **MCP Integration Engine:** Move from declaration-only MCP tools to real runtime orchestration with automatic MCP server startup, security authorization prompts, and session pooling.
+
+---
+
+## 📈 Star History
+
+If you believe in a framework-neutral, open standard for AI agents, consider starring the repository to support our open-source journey:
+
+[![Star History Chart](https://api.star-history.com/svg?repos=vindepemarte/Capsule&type=Date)](https://star-history.com/#vindepemarte/Capsule&Date)
+
+---
+
 ## 🛡️ License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.

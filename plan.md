@@ -579,33 +579,33 @@ Post-MVP security roadmap:
 
 ## Product Requirements
 
-### P0 Requirements
+### P0 Requirements (Completed)
 
 P0 is required for the MVP to be considered complete.
 
-- A developer can create a new Capsule project with `capsule init`.
-- A developer can validate `capsule.yaml` with useful errors.
-- Capsule can build a neutral Capsule Graph from the manifest.
-- Capsule can run a simple workflow locally from JSON input.
-- Capsule can run YAML-defined tests.
-- Capsule can compile the same workflow to LangGraph.
-- Capsule can create a `.capsule` bundle.
-- Capsule can create `capsule.lock`.
-- The codebase is modular and beginner-readable.
-- `manifest.json` stays current as structure changes.
+- [x] A developer can create a new Capsule project with `capsule init`.
+- [x] A developer can validate `capsule.yaml` with useful errors.
+- [x] Capsule can build a neutral Capsule Graph from the manifest.
+- [x] Capsule can run a simple workflow locally from JSON input.
+- [x] Capsule can run YAML-defined tests.
+- [x] Capsule can compile the same workflow to LangGraph.
+- [x] Capsule can create a `.capsule` bundle.
+- [x] Capsule can create `capsule.lock`.
+- [x] The codebase is modular and beginner-readable.
+- [x] `manifest.json` stays current as structure changes.
 
 ### P1 Requirements
 
 P1 is next after MVP.
 
-- CrewAI adapter.
-- OpenAI Agents SDK adapter.
-- Better run traces.
-- SQLite-backed run history.
-- MCP tool declaration support.
-- More complete permission model.
-- Better examples.
-- Documentation site.
+- [ ] CrewAI adapter.
+- [x] OpenAI Agents SDK adapter. (Completed)
+- [x] Better run traces. (Completed)
+- [x] SQLite-backed run history. (Completed)
+- [x] MCP tool declaration support. (Completed)
+- [ ] More complete permission model.
+- [ ] Better examples.
+- [ ] Documentation site.
 
 ### P2 Requirements
 
@@ -639,10 +639,9 @@ The MVP is done when all of these are true:
 
 ## Roadmap
 
-### Phase 1: PRD And Project Foundation
+### Phase 1: PRD And Project Foundation (Completed)
 
 Deliverables:
-
 - Production PRD.
 - Development rules.
 - Project manifest.
@@ -650,73 +649,66 @@ Deliverables:
 - Python project scaffold.
 - Basic test and lint setup.
 
-### Phase 2: Spec And Validation
+### Phase 2: Spec And Validation (Completed)
 
 Deliverables:
-
 - `capsule.yaml` Pydantic models.
 - YAML loader.
 - Path resolver.
 - Validation diagnostics.
 - Example project.
 
-### Phase 3: Capsule Graph
+### Phase 3: Capsule Graph (Completed)
 
 Deliverables:
-
 - Capsule Graph models.
 - Manifest-to-graph conversion.
 - Graph inspection.
 - Serialization for debugging.
 
-### Phase 4: Local Runtime
+### Phase 4: Local Runtime (Completed)
 
 Deliverables:
-
 - Simple graph executor.
 - Tool execution interface.
 - Permission checks.
 - Human gate stub.
 - Structured trace output.
 
-### Phase 5: Testing And Lockfile
+### Phase 5: Testing And Lockfile (Completed)
 
 Deliverables:
-
 - YAML test format.
 - Mock tool responses.
 - Output assertions.
 - Workflow path assertions.
 - `capsule.lock` generation.
 
-### Phase 6: LangGraph Compiler
+### Phase 6: LangGraph Compiler (Completed)
 
 Deliverables:
-
 - LangGraph adapter.
 - Generated Python project.
 - Generated README.
 - Runnable compiled example.
 - Parity smoke test.
 
-### Phase 7: Bundle
+### Phase 7: Bundle (Completed)
 
 Deliverables:
-
 - `.capsule` archive creation.
 - Bundle metadata.
 - Included prompts, tools, tests, permissions, and lockfile.
 - Bundle inspection command.
 
-### Phase 8: Post-MVP Expansion
+### Phase 8: Post-MVP Expansion (In Progress)
 
 Deliverables:
-
-- CrewAI adapter.
-- OpenAI Agents SDK adapter.
-- MCP declarations.
-- Signed bundles.
-- Registry prototype.
+- [ ] CrewAI adapter.
+- [x] OpenAI Agents SDK adapter. (Completed)
+- [x] MCP declarations stubs & stubs validations. (Completed)
+- [ ] Signed bundles.
+- [ ] Registry prototype.
 
 ## Risks
 
