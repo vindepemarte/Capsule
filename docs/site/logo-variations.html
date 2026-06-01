@@ -42,11 +42,21 @@
         }
 
         /* Decorative Background Blobs */
+        .bg-decorations {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         .blob {
             position: absolute;
             border-radius: 50%;
             filter: blur(120px);
-            z-index: -1;
             opacity: 0.15;
             pointer-events: none;
         }
@@ -248,8 +258,10 @@
     </style>
 </head>
 <body>
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
+    <div class="bg-decorations">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
 
     <div class="container">
         <h1>Capsule Logo Variations</h1>
