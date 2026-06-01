@@ -199,6 +199,12 @@
       "manualEdit": true,
       "generated": false
     },
+    "docs/site/logo-variations.html": {
+      "purpose": "Interactive HTML gallery presenting three different SVG vector logo designs for Capsule.",
+      "type": "documentation",
+      "manualEdit": true,
+      "generated": false
+    },
     "docs/site/main.js": {
       "purpose": "Interactive JS controller for tab switches, copy utility triggers, and data loading for the YAML Spec Explorer.",
       "type": "documentation",

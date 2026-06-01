@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capsule Logo Variations Gallery</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #060910;
+            --bg-card: rgba(15, 22, 36, 0.7);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --color-primary: #6366f1;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-lg: 16px;
+            --radius-md: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Decorative Background Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            top: 10%;
+            left: 10%;
+            width: 400px;
+            height: 400px;
+            background: #6366f1;
+        }
+
+        .blob-2 {
+            bottom: 10%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            background: #ec4899;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 30%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .logo-box {
+            width: 160px;
+            height: 160px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: var(--transition-smooth);
+            padding: 20px;
+        }
+
+        .card:hover .logo-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+
+        .select-btn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            color: var(--text-primary);
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .card:hover .select-btn {
+            background: var(--color-primary);
+            border-color: transparent;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .select-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* SVG styles inside page */
+        svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.05));
+        }
+
+        /* Copy Dialog code section */
+        .code-dialog {
+            background: rgba(10, 15, 25, 0.9);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+        }
+
+        .code-dialog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+        }
+
+        .code-dialog h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+        }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-glass);
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .copy-btn:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.1);
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            max-height: 200px;
+            color: #34d399;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="container">
+        <h1>Capsule Logo Variations</h1>
+        <p class="subtitle">Review the 3 SVG variations designed to replace the current heavy logo. Click any card to select the design or copy its vector source code.</p>
+
+        <div class="grid">
+            <!-- Variation 1 -->
+            <div class="card" onclick="showCode(1, 'The Glowing Core')">
+                <div class="logo-box">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="grad-core" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#6366f1" />
+                                <stop offset="50%" stop-color="#8b5cf6" />
+                                <stop offset="100%" stop-color="#ec4899" />
+                            </linearGradient>
+                            <filter id="glow-core">
+                                <feGaussianBlur stdDeviation="6" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+                        <!-- Rounded Outer bracket enclosing the capsule -->
+                        <path d="M 60 50 A 40 40 0 0 1 140 50 L 140 70 A 5 5 0 0 1 130 70 L 130 50 A 30 30 0 0 0 70 50 L 70 150 A 30 30 0 0 0 130 150 L 130 130 A 5 5 0 0 1 140 130 L 140 150 A 40 40 0 0 1 60 150 Z" fill="#ffffff" opacity="0.15" />
+                        <!-- Core Capsule Pill -->
+                        <rect x="85" y="45" width="30" height="110" rx="15" fill="url(#grad-core)" filter="url(#glow-core)" />
+                        <!-- Sleek diagonal cut / highlight overlay -->
+                        <path d="M 85 60 C 85 51.7 91.7 45 100 45 C 108.3 45 115 51.7 115 60 L 115 100 L 85 100 Z" fill="#ffffff" opacity="0.12" />
+                        <!-- Code braces subtle framing -->
+                        <path d="M 50 85 L 40 95 L 50 105" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                        <path d="M 150 85 L 160 95 L 150 105" stroke="#ec4899" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                    </svg>
+                </div>
+                <h2>1. The Glowing Core</h2>
+                <p class="card-desc">A highly minimalist, vertical capsule pill framed by a subtle containment path and code bracket accents. Highly aesthetic glow.</p>
+                <button class="select-btn">View Code</button>
+            </div>
+
+            <!-- Variation 2 -->
+            <div class="card" onclick="showCode(2, 'The Sandbox Shield')">
+                <div class="logo-box">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="grad-shield" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#3b82f6" />
+                                <stop offset="100%" stop-color="#10b981" />
+                            </linearGradient>
+                            <filter id="glow-shield">
+                                <feGaussianBlur stdDeviation="4" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+                        <!-- Hexagonal Shield Outer Border -->
+                        <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" fill="none" stroke="url(#grad-shield)" stroke-width="5" stroke-linejoin="round" filter="url(#glow-shield)" />
+                        <!-- Horizontal capsule container inside -->
+                        <rect x="55" y="85" width="90" height="30" rx="15" fill="rgba(255, 255, 255, 0.05)" stroke="#ffffff" stroke-width="3" opacity="0.8" />
+                        <!-- Left half solid filling representing inputs -->
+                        <path d="M 70 85 C 61.7 85 55 91.7 55 100 C 55 108.3 61.7 115 70 115 L 100 115 L 100 85 Z" fill="#3b82f6" />
+                        <!-- Keyhole / Permission center mark -->
+                        <circle cx="100" cy="100" r="6" fill="#10b981" />
+                        <!-- Scanning line horizontal -->
+                        <line x1="45" y1="100" x2="155" y2="100" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 4" />
+                    </svg>
+                </div>
+                <h2>2. The Sandbox Shield</h2>
+                <p class="card-desc">Integrates the capsule pill horizontally within a glowing hexagonal shield. Emphasizes runtime safety, scans, and sandboxing.</p>
+                <button class="select-btn">View Code</button>
+            </div>
+
+            <!-- Variation 3 -->
+            <div class="card" onclick="showCode(3, 'The Compiler Loop')">
+                <div class="logo-box">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="grad-loop-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#06b6d4" />
+                                <stop offset="100%" stop-color="#3b82f6" />
+                            </linearGradient>
+                            <linearGradient id="grad-loop-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#a855f7" />
+                                <stop offset="100%" stop-color="#f43f5e" />
+                            </linearGradient>
+                            <filter id="glow-loop">
+                                <feGaussianBlur stdDeviation="5" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+                        <!-- Layered ribbons overlapping to form a capsule pill shape -->
+                        <!-- Loop Ribbon 1 -->
+                        <path d="M 65 70 A 35 35 0 0 1 135 70 L 85 130 A 35 35 0 0 0 135 130" stroke="url(#grad-loop-1)" stroke-width="14" stroke-linecap="round" fill="none" filter="url(#glow-loop)" />
+                        <!-- Loop Ribbon 2 -->
+                        <path d="M 135 130 A 35 35 0 0 1 65 130 L 115 70 A 35 35 0 0 0 65 70" stroke="url(#grad-loop-2)" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.9" />
+                        <!-- Small connection nodes indicating compilation mapping paths -->
+                        <circle cx="100" cy="100" r="8" fill="#ffffff" />
+                        <circle cx="100" cy="100" r="4" fill="#3b82f6" />
+                    </svg>
+                </div>
+                <h2>3. The Compiler Loop</h2>
+                <p class="card-desc">Two overlapping gradient ribbons form the capsule geometry, symbolizing multi-agent transitions and compiled framework paths.</p>
+                <button class="select-btn">View Code</button>
+            </div>
+        </div>
+
+        <!-- Dynamic code viewer box -->
+        <div class="code-dialog" id="code-viewer">
+            <div class="code-dialog-header">
+                <h3 id="viewer-title">Vector Code</h3>
+                <button class="copy-btn" onclick="copyCode()">Copy SVG Code</button>
+            </div>
+            <pre><code id="svg-code-text">Select a variation...</code></pre>
+        </div>
+    </div>
+
+    <script>
+        const svgCodes = {
+            1: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-core" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="50%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+    <filter id="glow-core">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <path d="M 60 50 A 40 40 0 0 1 140 50 L 140 70 A 5 5 0 0 1 130 70 L 130 50 A 30 30 0 0 0 70 50 L 70 150 A 30 30 0 0 0 130 150 L 130 130 A 5 5 0 0 1 140 130 L 140 150 A 40 40 0 0 1 60 150 Z" fill="#ffffff" opacity="0.15" />
+  <rect x="85" y="45" width="30" height="110" rx="15" fill="url(#grad-core)" filter="url(#glow-core)" />
+  <path d="M 85 60 C 85 51.7 91.7 45 100 45 C 108.3 45 115 51.7 115 60 L 115 100 L 85 100 Z" fill="#ffffff" opacity="0.12" />
+  <path d="M 50 85 L 40 95 L 50 105" stroke="#8b5cf6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <path d="M 150 85 L 160 95 L 150 105" stroke="#ec4899" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+</svg>`,
+            2: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-shield" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <filter id="glow-shield">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" fill="none" stroke="url(#grad-shield)" stroke-width="5" stroke-linejoin="round" filter="url(#glow-shield)" />
+  <rect x="55" y="85" width="90" height="30" rx="15" fill="rgba(255, 255, 255, 0.05)" stroke="#ffffff" stroke-width="3" opacity="0.8" />
+  <path d="M 70 85 C 61.7 85 55 91.7 55 100 C 55 108.3 61.7 115 70 115 L 100 115 L 100 85 Z" fill="#3b82f6" />
+  <circle cx="100" cy="100" r="6" fill="#10b981" />
+  <line x1="45" y1="100" x2="155" y2="100" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 4" />
+</svg>`,
+            3: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-loop-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="grad-loop-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#f43f5e" />
+    </linearGradient>
+    <filter id="glow-loop">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <path d="M 65 70 A 35 35 0 0 1 135 70 L 85 130 A 35 35 0 0 0 135 130" stroke="url(#grad-loop-1)" stroke-width="14" stroke-linecap="round" fill="none" filter="url(#glow-loop)" />
+  <path d="M 135 130 A 35 35 0 0 1 65 130 L 115 70 A 35 35 0 0 0 65 70" stroke="url(#grad-loop-2)" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.9" />
+  <circle cx="100" cy="100" r="8" fill="#ffffff" />
+  <circle cx="100" cy="100" r="4" fill="#3b82f6" />
+</svg>`
+        };
+
+        function showCode(variationId, title) {
+            const viewer = document.getElementById('code-viewer');
+            const titleEl = document.getElementById('viewer-title');
+            const codeEl = document.getElementById('svg-code-text');
+            
+            titleEl.textContent = `${title} SVG Vector Code`;
+            codeEl.textContent = svgCodes[variationId];
+            viewer.style.display = 'block';
+            
+            // Auto scroll to code panel
+            viewer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyCode() {
+            const code = document.getElementById('svg-code-text').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>

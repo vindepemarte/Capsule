@@ -49,6 +49,16 @@ body {
     position: relative;
     overflow-x: hidden;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+#main-footer {
+    margin-top: auto;
 }
 
 /* Background Glowing Blobs */
